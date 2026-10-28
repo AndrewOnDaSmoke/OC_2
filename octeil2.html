@@ -1,0 +1,1172 @@
+```html
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VoWo Chemie Mannheim | OC Teil 2 – Biomoleküle & Interaktives Anki-Deck</title>
+    <style>
+        :root {
+            --bg-main: #f8fafc;
+            --bg-card: #ffffff;
+            --bg-subtle: #f1f5f9;
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --primary: #0284c7;
+            --primary-light: #e0f2fe;
+            --accent: #4f46e5;
+            --accent-light: #e0e7ff;
+            --success: #16a34a;
+            --success-bg: #dcfce7;
+            --warning: #d97706;
+            --warning-bg: #fef3c7;
+            --danger: #dc2626;
+            --danger-bg: #fee2e2;
+            --border: #e2e8f0;
+            --radius: 10px;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            line-height: 1.56;
+            padding-bottom: 4rem;
+        }
+
+        header {
+            background: var(--bg-card);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+        }
+
+        .header-inner {
+            max-width: 1260px;
+            margin: 0 auto;
+            padding: 0.8rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+        }
+
+        .brand { display: flex; align-items: center; gap: 0.75rem; }
+
+        .badge-target {
+            background: var(--accent);
+            color: white;
+            font-weight: 700;
+            font-size: 0.74rem;
+            padding: 0.25rem 0.6rem;
+            border-radius: 999px;
+            text-transform: uppercase;
+        }
+
+        h1 { font-size: 1.18rem; font-weight: 800; color: var(--text-main); }
+
+        nav { display: flex; gap: 0.35rem; flex-wrap: wrap; align-items: center; }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-muted);
+            font-size: 0.82rem;
+            font-weight: 600;
+            padding: 0.38rem 0.65rem;
+            border-radius: 6px;
+            transition: all 0.15s ease;
+        }
+
+        nav a:hover { background: var(--bg-subtle); color: var(--primary); }
+
+        .btn-download {
+            background: var(--success);
+            color: white;
+            border: none;
+            padding: 0.45rem 0.85rem;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .btn-download:hover { opacity: 0.9; }
+
+        .container { max-width: 1260px; margin: 1.8rem auto; padding: 0 1.5rem; }
+
+        .intro-banner {
+            background: linear-gradient(135deg, #4f46e5 0%, #0284c7 100%);
+            color: white;
+            padding: 1.5rem 2rem;
+            border-radius: var(--radius);
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+        }
+
+        .intro-banner h2 { font-size: 1.4rem; margin-bottom: 0.4rem; }
+        .intro-banner p { font-size: 0.93rem; opacity: 0.95; max-width: 950px; }
+
+        .section-title {
+            font-size: 1.42rem;
+            font-weight: 800;
+            margin: 2.5rem 0 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .section-freq {
+            font-size: 0.76rem;
+            font-weight: 700;
+            background: var(--accent-light);
+            color: var(--accent);
+            padding: 0.25rem 0.75rem;
+            border-radius: 999px;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(480px, 1fr));
+            gap: 1.25rem;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 1.15rem;
+        }
+
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(265px, 1fr));
+            gap: 0.9rem;
+        }
+
+        @media (max-width: 650px) {
+            .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1.25rem 1.4rem;
+            box-shadow: var(--shadow);
+        }
+
+        .card h3 { font-size: 1.08rem; font-weight: 700; margin-bottom: 0.65rem; color: var(--text-main); }
+        .card h4 { font-size: 0.95rem; font-weight: 700; margin: 0.9rem 0 0.35rem; color: var(--primary); }
+
+        .box {
+            padding: 0.8rem 1rem;
+            border-radius: 8px;
+            margin: 0.75rem 0;
+            font-size: 0.88rem;
+            border-left: 4px solid;
+        }
+
+        .box-trap { background: var(--danger-bg); border-left-color: var(--danger); color: #7f1d1d; }
+        .box-shortcut { background: var(--success-bg); border-left-color: var(--success); color: #14532d; }
+        .box-info { background: var(--primary-light); border-left-color: var(--primary); color: #0c4a6e; }
+        .box-warn { background: var(--warning-bg); border-left-color: var(--warning); color: #78350f; }
+
+        .box-title {
+            font-weight: 800;
+            text-transform: uppercase;
+            font-size: 0.73rem;
+            letter-spacing: 0.04em;
+            display: block;
+            margin-bottom: 0.25rem;
+        }
+
+        table { width: 100%; border-collapse: collapse; font-size: 0.85rem; margin: 0.65rem 0; }
+        th, td { text-align: left; padding: 0.48rem 0.6rem; border-bottom: 1px solid var(--border); vertical-align: top; }
+        th { background: var(--bg-subtle); font-weight: 700; color: var(--text-main); }
+        tr:last-child td { border-bottom: none; }
+
+        ul, ol { padding-left: 1.2rem; margin: 0.4rem 0; font-size: 0.89rem; }
+        li { margin-bottom: 0.32rem; }
+
+        code {
+            font-family: Consolas, Monaco, monospace;
+            background: var(--bg-subtle);
+            padding: 0.1rem 0.35rem;
+            border-radius: 4px;
+            font-size: 0.86em;
+            font-weight: 600;
+            color: var(--accent);
+        }
+
+        .pill {
+            display: inline-block;
+            padding: 0.1rem 0.42rem;
+            border-radius: 4px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            background: var(--bg-subtle);
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+        }
+
+        .svg-container {
+            background: #ffffff;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 0.7rem;
+            margin: 0.7rem 0;
+            text-align: center;
+        }
+
+        /* Amino Acid Mini Cards */
+        .aa-card {
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 0.75rem;
+            background: var(--bg-card);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .aa-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 0.35rem;
+            margin-bottom: 0.45rem;
+        }
+        .aa-name { font-weight: 800; font-size: 0.92rem; }
+        .aa-code { font-weight: 700; font-size: 0.76rem; padding: 0.1rem 0.4rem; border-radius: 4px; }
+        .cat-nonpolar { background: #f1f5f9; color: #334155; }
+        .cat-arom { background: #ede9fe; color: #5b21b6; }
+        .cat-polar { background: #e0f2fe; color: #0369a1; }
+        .cat-acid { background: #fee2e2; color: #b91c1c; }
+        .cat-base { background: #dcfce7; color: #15803d; }
+
+        /* ANKI TRAINER STYLES */
+        .anki-wrapper {
+            background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+            border: 2px solid var(--accent);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.1);
+            margin-bottom: 2rem;
+        }
+
+        .anki-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-bottom: 1.2rem;
+            padding-bottom: 0.9rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .anki-filters {
+            display: flex;
+            gap: 0.4rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: var(--bg-subtle);
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            padding: 0.4rem 0.8rem;
+            border-radius: 999px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .filter-btn.active {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+        }
+
+        .anki-stats {
+            font-size: 0.82rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            display: flex;
+            gap: 0.8rem;
+            align-items: center;
+        }
+
+        .anki-card-stage {
+            max-width: 680px;
+            margin: 0 auto;
+            min-height: 330px;
+            background: white;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            text-align: center;
+            box-shadow: var(--shadow);
+            position: relative;
+        }
+
+        .anki-cat-badge {
+            font-size: 0.72rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 0.2rem 0.65rem;
+            border-radius: 999px;
+            background: var(--primary-light);
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .anki-visual {
+            width: 100%;
+            max-width: 440px;
+            min-height: 165px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0.5rem 0;
+            background: #ffffff;
+            border: 1px dashed var(--border);
+            border-radius: 8px;
+            padding: 0.6rem;
+        }
+
+        .anki-question {
+            font-size: 1.05rem;
+            font-weight: 800;
+            color: var(--text-main);
+            margin: 0.4rem 0;
+        }
+
+        .anki-answer {
+            display: none;
+            width: 100%;
+            background: var(--bg-subtle);
+            border-top: 2px solid var(--accent);
+            border-radius: 8px;
+            padding: 0.9rem 1.1rem;
+            margin-top: 0.75rem;
+            text-align: left;
+            font-size: 0.9rem;
+        }
+
+        .anki-actions {
+            margin-top: 1.1rem;
+            display: flex;
+            gap: 0.65rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            width: 100%;
+        }
+
+        .btn-anki {
+            padding: 0.55rem 1.15rem;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.1s;
+        }
+
+        .btn-anki:active { transform: scale(0.97); }
+        .btn-show { background: var(--accent); color: white; width: 220px; }
+        .btn-again { background: var(--danger-bg); color: var(--danger); border: 1px solid #fca5a5; }
+        .btn-good { background: var(--success-bg); color: var(--success); border: 1px solid #86efac; }
+        .btn-nav { background: var(--bg-subtle); color: var(--text-main); border: 1px solid var(--border); }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="header-inner">
+        <div class="brand">
+            <span class="badge-target">VoWo Mannheim</span>
+            <h1>OC Teil 2 – Biomoleküle &amp; Anki-Trainer</h1>
+        </div>
+        <nav>
+            <a href="#anki-section">🎴 Anki-Trainer (42 Karten)</a>
+            <a href="#zucker">1. Kohlenhydrate</a>
+            <a href="#aminosaeuren">2. Alle 20 Aminosäuren &amp; IEP</a>
+            <a href="#proteine">3. Peptide &amp; Proteine</a>
+            <a href="#nukleinsaeuren">4. DNA/RNA &amp; Lipide</a>
+            <a href="#spickzettel">5. Klausur-Spickzettel</a>
+            <button class="btn-download" onclick="downloadHTML()">⬇ Als .html speichern</button>
+        </nav>
+    </div>
+</header>
+
+<div class="container">
+
+    <div class="intro-banner">
+        <h2>OC Teil 2: Biomoleküle komplett + Eingebauter Anki-Strukturtrainer</h2>
+        <p>Biomoleküle machen in Mannheim rund <strong>35–40% der gesamten Klausur</strong> aus: Zucker klassifizieren (Aldo-/Keto-, Pentose/Hexose), glycosidische Bindungen (α/β, 1&rarr;4, 1&rarr;6, 1&rarr;2) ablesen, alle 20 Aminosäuren in Tripeptiden und am Isoelektrischen Punkt (IEP) erkennen, Proteinstrukturen (Primär bis Quartär), Nukleobasen (Purin/Pyrimidin, A, G, C, T, U) und Omega-Fettsäuren.</p>
+    </div>
+
+    <!-- INTERAKTIVER ANKI-TRAINER -->
+    <div class="section-title" id="anki-section">
+        <span>🎴 Interaktiver Anki-Strukturtrainer (Alle 20 Aminosäuren, Zucker &amp; Basen)</span>
+        <span class="section-freq">Direkt im Browser lernen + als Anki-Datei (.tsv) exportieren</span>
+    </div>
+
+    <div class="anki-wrapper">
+        <div class="anki-controls">
+            <div class="anki-filters">
+                <button class="filter-btn active" onclick="setCategory('ALL', this)">Alle (42)</button>
+                <button class="filter-btn" onclick="setCategory('AA', this)">20 Aminosäuren (20)</button>
+                <button class="filter-btn" onclick="setCategory('SUGAR', this)">Einfach- &amp; Mehrfachzucker (14)</button>
+                <button class="filter-btn" onclick="setCategory('BASE', this)">Purin, Pyrimidin &amp; Nukleobasen (8)</button>
+            </div>
+            <div class="anki-stats">
+                <span id="anki-progress">Karte 1 / 42</span>
+                <span style="color: var(--success);" id="anki-known">Gewusst: 0</span>
+                <button class="btn-anki btn-nav" style="padding: 0.3rem 0.65rem; font-size: 0.76rem;" onclick="shuffleDeck()">🔀 Mischen</button>
+                <button class="btn-anki btn-nav" style="padding: 0.3rem 0.65rem; font-size: 0.76rem;" onclick="exportAnkiTSV()">📥 Für echtes Anki exportieren (.txt)</button>
+            </div>
+        </div>
+
+        <div class="anki-card-stage">
+            <div style="width:100%;">
+                <span class="anki-cat-badge" id="card-cat">Kategorie</span>
+                <div class="anki-question" id="card-q">Frage lädt...</div>
+            </div>
+
+            <div class="anki-visual" id="card-svg"></div>
+
+            <div class="anki-answer" id="card-a"></div>
+
+            <div class="anki-actions">
+                <button class="btn-anki btn-nav" onclick="prevCard()">&larr; Zurück</button>
+                <button class="btn-anki btn-show" id="btn-reveal" onclick="revealAnswer()">Antwort zeigen (Leertaste)</button>
+                <button class="btn-anki btn-again" id="btn-again" style="display:none;" onclick="markCard(false)">✘ Nochmal</button>
+                <button class="btn-anki btn-good" id="btn-good" style="display:none;" onclick="markCard(true)">✔ Gewusst (Weiter)</button>
+                <button class="btn-anki btn-nav" onclick="nextCard()">Weiter &rarr;</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- KAPITEL 1: KOHLENHYDRATE -->
+    <div class="section-title" id="zucker">
+        <span>1. Kohlenhydrate: Alle Einfachzucker, Reaktionen &amp; Glycosidische Bindungen</span>
+        <span class="section-freq">In 100% der Klausuren (2–4 Fragen)</span>
+    </div>
+
+    <div class="grid-2">
+        <div class="card">
+            <h3>Systematik &amp; Die wichtigsten Einfachzucker (Monosaccharide)</h3>
+            <p style="font-size: 0.9rem;">Jeder Zucker wird nach 2 Merkmalen benannt: <strong>1. Funktionelle Gruppe:</strong> <code>Aldo-</code> (Aldehyd <code>–CHO</code> an C1) vs. <code>Keto-</code> (Keton <code>C=O</code> an C2). <strong>2. Anzahl C-Atome:</strong> Triose (3 C), Tetrose (4 C), Pentose (5 C), Hexose (6 C).</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Klasse</th>
+                        <th>Zucker-Name</th>
+                        <th>Struktur / Fischer-Muster (C2 &rarr; unten) &amp; Prüfungsfokus</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Triosen (3 C)</strong></td>
+                        <td><strong>D-Glycerinaldehyd</strong><br><strong>Dihydroxyaceton</strong></td>
+                        <td>• Aldotriose: Kleinster chiraler Zucker (C2: OH <strong>rechts</strong> = D).<br>• Ketotriose: <code>HOCH2–C(=O)–CH2OH</code> (<strong>achiral!</strong> Kein Stereozentrum).</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Aldotetrosen (4 C)</strong><br><span class="pill">2015 #30</span></td>
+                        <td><strong>D-Erythrose</strong><br><strong>D-Threose</strong></td>
+                        <td>• D-Erythrose: C2 <strong>rechts</strong>, C3 <strong>rechts</strong> (beide OH auf gleicher Seite = <em>erythro</em>).<br>• D-Threose: C2 <strong>links</strong>, C3 <strong>rechts</strong> (OH entgegengesetzt = <em>threo</em>).</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Pentosen (5 C)</strong><br><span class="pill">2017, 2020, 2023, 2024</span></td>
+                        <td><strong>D-Ribose</strong><br><strong>2-Desoxy-D-ribose</strong><br><strong>D-Arabinose / D-Xylose</strong><br><strong>D-Ribulose</strong></td>
+                        <td>• <strong>D-Ribose (Aldopentose, RNA):</strong> C2, C3, C4 <strong>alle 3 OH rechts</strong>! (Im Ring: C2' und C3' tragen beide OH).<br>• <strong>2-Desoxyribose (DNA):</strong> An <strong>C2 fehlt das O-Atom</strong> (nur CH<sub>2</sub> statt CHOH!).<br>• <strong>D-Ribulose (Ketopentose!):</strong> C=O an C2, C3 &amp; C4 rechts. <strong>Konstitutionsisomer zu Ribose!</strong></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Aldohexosen (6 C)</strong><br><span class="pill">In JEDER Klausur!</span></td>
+                        <td><strong>D-Glucose</strong><br><strong>D-Mannose</strong><br><strong>D-Galactose</strong><br><strong>D-Allose</strong></td>
+                        <td>• <strong>D-Glucose („tatütata“):</strong> C2 <strong>rechts</strong>, C3 <strong>links</strong>, C4 <strong>rechts</strong>, C5 <strong>rechts</strong>.<br>
+                        • <strong>D-Mannose (C2-Epimer zu Glc):</strong> C2 <strong>links</strong>, C3 <strong>links</strong>, C4 <strong>rechts</strong>, C5 <strong>rechts</strong>.<br>
+                        • <strong>D-Galactose (C4-Epimer zu Glc):</strong> C2 <strong>rechts</strong>, C3 <strong>links</strong>, C4 <strong>links</strong>, C5 <strong>rechts</strong>.<br>
+                        • <strong>D-Allose (Sem 29F):</strong> C2, C3, C4, C5 <strong>alle 4 OH rechts</strong>!</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Ketohexose (6 C)</strong><br><span class="pill">2018–2024</span></td>
+                        <td><strong>D-Fructose</strong></td>
+                        <td>• C=O an <strong>C2</strong>! C3 <strong>links</strong>, C4 <strong>rechts</strong>, C5 <strong>rechts</strong>.<br>• <strong>Konstitutionsisomer</strong> zu Glucose, Mannose &amp; Galactose! Bildet oft Fünfring (Furanose), hat aber trotzdem 6 C (Hexose!).</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="box box-shortcut">
+                <span class="box-title">Der „Tatütata“-Fingertrick + Sesselkonformation (Klausur 2009 #18, 2015 #5, Sem 49)</span>
+                <ul>
+                    <li><strong>Fischer-Projektion D-Glucose:</strong> <code>ta</code> (C2 rechts) – <code>tü</code> (C3 links) – <code>ta</code> (C4 rechts) – <code>ta</code> (C5 rechts).<br>
+                    <em>L-Glucose (Klausur 2009/2011 #39):</em> Ist das Enantiomer, also <strong>alles gespiegelt</strong>: links – rechts – links – links (insbesondere C5 steht links!).</li>
+                    <li><strong>Warum ist β-D-Glucopyranose in der Sesselkonformation der stabilste Zucker der Natur?</strong><br>
+                    Weil bei <strong>β-D-Glucose ALLE 5 großen Substituenten</strong> (OH an C1, C2, C3, C4 sowie CH<sub>2</sub>OH an C5) <strong>äquatorial (seitlich flach)</strong> stehen!<br>
+                    • Bei <strong>α-D-Glucose (Klausur 2009 #18, 2015 #5)</strong> steht <strong>nur das OH am C1 axial (senkrecht nach unten)</strong>, die OH an C2, C3, C4 und CH<sub>2</sub>OH stehen äquatorial!<br>
+                    • Bei <strong>D-Galactose (Seminar 49)</strong> steht das OH an <strong>C4 axial nach oben</strong> (da C4-Epimer!).</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>Zucker-Reaktionen (Seminar 29, 46, 54) &amp; Glycosidische Bindungen</h3>
+            
+            <h4>Die 6 Zucker-Reaktionen aus Prof. Kivalas Seminar (Aufgabe 29, 46, 54)</h4>
+            <ul style="font-size: 0.87rem;">
+                <li><strong>1. Nachweis von Aldosen / reduzierenden Zuckern (Tollens-Probe / Fehling, Sem 29A, 46, 54):</strong><br>
+                Die Aldehydgruppe (C1) wird durch <code>[Ag(NH3)2]+</code> (Tollens, Silberspiegel <code>Ag↓</code>) oder <code>Cu2+</code> (Fehling, rotes <code>Cu2O↓</code>) zur <strong>Carbonsäure (Aldonsäure)</strong> oxidiert:<br>
+                <code>D-Glucose + 2 [Ag(NH3)2]+ + 3 OH- &rarr; D-Gluconat (D-Gluconsäure) + 2 Ag↓ + 4 NH3 + 2 H2O</code>.<br>
+                <em>Aus D-Mannose entsteht analog D-Mannonsäure (Sem 29D: oben COOH, unten bleibt CH<sub>2</sub>OH!).</em></li>
+                <li><strong>2. Starke Oxidation mit konz. Salpetersäure HNO<sub>3</sub> (Sem 29F):</strong><br>
+                Konz. HNO<sub>3</sub> oxidiert <strong>BEIDE Enden</strong> (C1 <code>–CHO</code> UND C6 <code>–CH2OH</code>) zu <code>–COOH</code> &rarr; es entstehen <strong>Aldarsäuren (Zuckersäuren)</strong>! Aus D-Allose (alle 4 OH rechts) entsteht <strong>D-Allarsäure</strong> (oben und unten COOH, alle 4 OH rechts &rarr; <strong>meso-Verbindung</strong>, Drehwinkel = 0°!). Aus D-Galactose entsteht <em>meso</em>-Galactarsäure (Schleimsäure, Klausur 2023/2024).</li>
+                <li><strong>3. Lobry-de-Bruyn-Alberda-van-Ekenstein-Umlagerung (Sem 29A):</strong><br>
+                Im Basischen (<code>OH-</code>) wandeln sich <strong>D-Glucose, D-Mannose und D-Fructose</strong> über ein gemeinsames <em>1,2-Endiol-Zwischenprodukt</em> ineinander um! (Deshalb gibt auch Fructose im Basischen eine positive Fehling-/Tollens-Probe!).</li>
+                <li><strong>4. Osazon-Bildung mit 3 Äq. Phenylhydrazin PhNHNH<sub>2</sub> (Sem 29E):</strong><br>
+                Reagiert an <strong>C1 UND C2</strong> zum gelben Bis-Phenylhydrazon (Osazon). Da die Chiralität an C2 dabei verloren geht (wird zu <code>C=N–NHPh</code>), bilden D-Glucose, D-Mannose und D-Fructose <strong>exakt dasselbe Osazon</strong>!</li>
+                <li><strong>5. Kiliani-Fischer-Kettenverlängerung (Sem 29G):</strong><br>
+                <code>1) HCN (Cyanhydrin), 2) H2O/H+, 3) H2/Pd-BaSO4</code> verlängert eine Aldopentose (z. B. D-Arabinose) um 1 C-Atom zu einem Gemisch aus zwei C2-epimeren Aldohexosen (<strong>D-Glucose + D-Mannose</strong>).</li>
+                <li><strong>6. Vollacetal-Bildung (Glycosid) mit Alkohol + H<sup>+</sup> (Sem 29C):</strong><br>
+                D-Galactopyranose + <code>CH3OH / H+</code> &rarr; <strong>Methyl-α-D-galactopyranosid</strong> + H<sub>2</sub>O (Halbacetal an C1 wird zum Vollacetal; Ring kann sich nicht mehr öffnen &rarr; keine Mutarotation mehr!).</li>
+            </ul>
+
+            <div class="box box-shortcut">
+                <span class="box-title">Alle Disaccharide &amp; Polysaccharide der Altklausuren</span>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Zucker</th>
+                            <th>Bausteine</th>
+                            <th>Verknüpfung (Klausur-Dauerbrenner!)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Lactose</strong> (Milchzucker)<br><span class="pill">2018, 2023, 2024, Sem 49</span></td>
+                            <td>D-Galactose + D-Glucose</td>
+                            <td><strong>β-(1&rarr;4)</strong> (C1 der Galactose zeigt nach oben = β, hängt an C4 der Glucose). Reduzierend!</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Isomaltose</strong><br><span class="pill">2019, 2020, 2021</span></td>
+                            <td>2x D-Glucose</td>
+                            <td><strong>α-(1&rarr;6)</strong> (C1 zeigt nach unten = α, hängt an der <strong>CH<sub>2</sub>-Seitenkette = C6</strong> des zweiten Rings!).</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Saccharose</strong> (Haushaltszucker) <span class="pill">2021, 2025, Bsp</span></td>
+                            <td>α-D-Glucose + β-D-Fructose</td>
+                            <td><strong>α,β-(1&rarr;2)</strong> (Kopf-an-Kopf-Verknüpfung beider anomerer Zentren &rarr; <strong>NICHT reduzierend</strong>!).</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Maltose</strong> (Malzzucker)<br><strong>Cellobiose</strong></td>
+                            <td>2x D-Glucose<br>2x D-Glucose</td>
+                            <td>Maltose: <strong>α-(1&rarr;4)</strong> (Abbauprodukt der Stärke).<br>Cellobiose: <strong>β-(1&rarr;4)</strong> (Grundbaustein der Cellulose).</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Cellulose &amp; Chitin</strong><br><span class="pill">2015, 2017</span></td>
+                            <td>β-D-Glucose bzw. N-Acetylglucosamin</td>
+                            <td><strong>β-(1&rarr;4)</strong> (lineare, unverzweigte Ketten).<br><em>Stärke/Glykogen:</em> Amylose <strong>α-(1&rarr;4)</strong>, Verzweigungen <strong>α-(1&rarr;6)</strong>.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- KAPITEL 2: ALLE 20 AMINOSÄUREN -->
+    <div class="section-title" id="aminosaeuren">
+        <span>2. Alle 20 proteinogenen Aminosäuren &amp; Isoelektrischer Punkt (IEP)</span>
+        <span class="section-freq">In 100% der Klausuren (2–3 Fragen)</span>
+    </div>
+
+    <div class="card" style="margin-bottom: 1.25rem;">
+        <h3>Die 6 Spezial-Fragen aus Seminar-Aufgabe 28 (Sofort-Antworten)</h3>
+        <div class="grid-2">
+            <ul style="font-size: 0.89rem;">
+                <li><strong>1. Welche Aminosäure ist NICHT chiral (achiral)?</strong><br>
+                <strong>Glycin (Gly, G)</strong>! Da die Seitenkette <code>R = –H</code> ist, trägt das α-C zwei gleiche H-Atome (<code>–CH2–</code>) &rarr; kein Stereozentrum (Klausur 2023 #31).</li>
+                <li><strong>2. Welche Aminosäuren haben MEHR als ein Stereozentrum (nämlich 2)?</strong><br>
+                <strong>L-Isoleucin (Ile)</strong> und <strong>L-Threonin (Thr)</strong>! Bei beiden ist neben dem α-C (C2) auch das <strong>β-C (C3) in der Seitenkette chiral</strong> (4 verschiedene Reste!).</li>
+                <li><strong>3. Welche 3 tragen einen aromatischen Ring?</strong><br>
+                <strong>Phenylalanin (Phe)</strong> [Benzolring], <strong>Tyrosin (Tyr)</strong> [Phenolring mit OH] und <strong>Tryptophan (Trp)</strong> [Indol-Doppelring mit NH]. <em>(Histidin hat einen heteroaromatischen Imidazolring, zählt aber primär zu den basischen AS).</em></li>
+            </ul>
+            <ul style="font-size: 0.89rem;">
+                <li><strong>4. Welche 2 sind deutlich sauer (negativ geladen bei pH 7)?</strong><br>
+                <strong>Asparaginsäure (Asp, D)</strong> [<code>–CH2–COOH</code>] und <strong>Glutaminsäure (Glu, E)</strong> [<code>–CH2–CH2–COOH</code>]. <em>(Falle: Asparagin Asn &amp; Glutamin Gln sind deren neutrale Säureamide!).</em></li>
+                <li><strong>5. Welche 3 sind basisch (positiv geladen bei pH 7)?</strong><br>
+                <strong>Lysin (Lys, K)</strong> [<code>–(CH2)4–NH2</code>], <strong>Arginin (Arg, R)</strong> [Guanidinogruppe, stärkste Base] und <strong>Histidin (His, H)</strong> [Imidazol-Fünfring mit 2 N, puffert im Blut bei pH ~6–7].</li>
+                <li><strong>6. Wo weicht Fischer (D/L) von CIP (R/S) ab?</strong><br>
+                Bei <strong>L-Cystein (Cys)</strong>! Alle 19 chiralen proteinogenen AS sind L-konfiguriert; 18 davon sind <strong>(2S)</strong>, nur <strong>L-Cystein ist (2R)</strong>, weil der Schwefel in <code>–CH2SH</code> nach CIP Priorität 2 vor <code>–COOH</code> (Prio 3) erhält!</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- ÜBERSICHT ALLER 20 AMINOSÄUREN -->
+    <div class="grid-4" style="margin-bottom: 1.5rem;">
+        <div class="aa-card"><div class="aa-head"><span class="aa-name">1. Glycin</span><span class="aa-code cat-nonpolar">Gly / G</span></div><div style="font-size:0.83rem;"><strong>Rest R:</strong> <code>–H</code><br><em>Merkmal:</em> Einzige <strong>achirale</strong> AS (α-C ist CH<sub>2</sub>).</div></div>
+        <div class="aa-card"><div class="aa-head"><span class="aa-name">2. Alanin</span><span class="aa-code cat-nonpolar">Ala / A</span></div><div style="font-size:0.83rem;"><strong>Rest R:</strong> <code>–CH3</code><br><em>Merkmal:</em> Einfache Methylgruppe; entsteht aus Pyruvat.</div></div>
+        <div class="aa-card"><div class="aa-head"><span class="aa-name">3. Valin</span><span class="aa-code cat-nonpolar">Val / V</span></div><div style="font-size:0.83rem;"><strong>Rest R:</strong> <code>–CH(CH3)2</code><br><em>Merkmal:</em> Isopropyl-Rest (sieht aus wie ein <strong>V</strong> direkt am α-C).</div></div>
+        <div class="aa-card"><div class="aa-head"><span class="aa-name">4. Leucin</span><span class="aa-code cat-nonpolar">Leu / L</span></div><div style="font-size:0.83rem;"><strong>Rest R:</strong> <code>–CH2–CH(CH3)2</code><br><em>Merkmal:</em> Isobutyl (erst ein <strong>CH<sub>2</sub></strong>, dann die V-Gabel! 2025 #9).</div></div>
+        <div class="aa-card"><div class="aa-head"><span class="aa-name">5. Isoleucin</span><span class="aa-code cat-nonpolar">Ile / I</span></div><div style="font-size:0.83rem;"><strong>Rest R:</strong> <code>–CH(CH3)–CH2–CH3</code><br><em>Merkmal:</em> <em>sec</em>-Butyl; Verzweigung an β-C &rarr; <strong>2 Stereozentren!</strong></div></div>
+        <div class="aa-card"><div class="aa-head"><span class="aa-name">6. Prolin</span><span class="aa-code cat-nonpolar">Pro / P</span></div><div style="font-size:0.83rem;"><strong>Rest R:</strong> <code>–(CH2)3–</code> (Ring zum α-NH)<br><em>Merkmal:</em> Pyrrolidin-Fünfring; einziges <strong>sekundäres α-Amin</strong> (Helix-Brecher).</div></div>
+        <div class="aa-card"><div class="aa-head"><span class="aa-name">7. Phenylalanin</span><span class="aa-code cat-arom">Phe / F</span></div><div style="font-size:0.83rem;"><strong>Rest R:</strong> <code>–CH2–C6H5</code> (Benzyl)<br><em>Merkmal:</em> Alanin + Benzolring (<strong>aromatisch</strong>, unpolar).</div></div>
+        <div class="aa-card"><div class="aa-head"><span class="aa-name">8. Tyrosin</span><span class="aa-code cat-arom">Tyr / Y</span></div><div style="font-size:0.83rem;"><strong>Rest R:</strong> <code>–CH2–C6H4–OH</code><br><em>Merkmal:</em> Phenylalanin + <em>para</em>-OH (Phenol, <strong>aromatisch</strong>, polar).</div></div>
+        <div class="aa-card"><div class="aa-head"><span class="aa-name">9. Tryptophan</span><span class="aa-code cat-arom">Trp / W</span></div><div style="font-size:0.83rem;"><strong>Rest R:</strong> <code>–CH2–Indol</code><br><em>Merkmal:</em> Größte AS; <strong>Indol-Doppelring</strong> (6er + 5er-Ring mit NH, <strong>aromatisch</strong>).</div></div>
+        <div class="aa-card"><div class="aa-head"><span class="aa-name">10. Serin</span><span class="aa-code cat-polar">Ser / S</span></div><div style="font-size:0.83rem;"><strong>Rest R:</strong> <code>–CH2–OH</code><br><em>Merkmal:</em> Primärer Alkohol; OH bleibt bei pH 7 ungeladen (2015 #29).</div></div>
+        <div class="aa-card"><div class="aa-head"><span class="aa-name">11. Threonin</span><span class="aa-code cat-polar">Thr / T</span></div><div style="font-size:0.83rem;"><strong>Rest R:</strong> <code>–CH(OH)–CH3</code><br><em>Merkmal:</em> Sekundärer Alkohol; hat <strong>2 Stereozentren</strong>!</div></div>
+        <div class="aa-card"><div class="aa-head"><span class="aa-name">12. Cystein</span><span class="aa-code cat-polar">Cys / C</span></div><div style="font-size:0.83rem;"><strong>Rest R:</strong> <code>–CH2–SH</code><br><em>Merkmal:</em> Thiolgruppe; bildet Disulfidbrücken (Cystin); <strong>L-Cys = (R)!</strong></div></div>
+        <div class="aa-card"><div class="aa-head"><span class="aa-name">13. Methionin</span><span class="aa-code cat-nonpolar">Met / M</span></div><div style="font-size:0.83rem;"><strong>Rest R:</strong> <code>–CH2–CH2–S–CH3</code><br><em>Merkmal:</em> <strong>Thioether</strong> (S zwischen C); bildet SAM (Methylgruppendonor).</div></div>
+        <div class="aa-card"><div class="aa-head"><span class="aa-name">14. Asparagin</span><span class="aa-code cat-polar">Asn / N</span></div><div style="font-size:0.83rem;"><strong>Rest R:</strong> <code>–CH2–C(=O)NH2</code><br><em>Merkmal:</em> Kurzes Säureamid (1 CH<sub>2</sub>); reagiert <strong>neutral</strong>!</div></div>
+        <div class="aa-card"><div class="aa-head"><span class="aa-name">15. Glutamin</span><span class="aa-code cat-polar">Gln / Q</span></div><div style="font-size:0.83rem;"><strong>Rest R:</strong> <code>–CH2–CH2–C(=O)NH2</code><br><em>Merkmal:</em> Langes Säureamid (2 CH<sub>2</sub>); reagiert <strong>neutral</strong>!</div></div>
+        <div class="aa-card"><div class="aa-head"><span class="aa-name">16. Asparaginsäure</span><span class="aa-code cat-acid">Asp / D</span></div><div style="font-size:0.83rem;"><strong>Rest R:</strong> <code>–CH2–COOH</code><br><em>Merkmal:</em> Kurze Carbonsäure (1 CH<sub>2</sub>); <strong>sauer</strong> (IEP ~2,8).</div></div>
+        <div class="aa-card"><div class="aa-head"><span class="aa-name">17. Glutaminsäure</span><span class="aa-code cat-acid">Glu / E</span></div><div style="font-size:0.83rem;"><strong>Rest R:</strong> <code>–CH2–CH2–COOH</code><br><em>Merkmal:</em> Lange Carbonsäure (2 CH<sub>2</sub>); <strong>sauer</strong> (IEP ~3,2).</div></div>
+        <div class="aa-card"><div class="aa-head"><span class="aa-name">18. Lysin</span><span class="aa-code cat-base">Lys / K</span></div><div style="font-size:0.83rem;"><strong>Rest R:</strong> <code>–(CH2)4–NH2</code><br><em>Merkmal:</em> 4 CH<sub>2</sub>-Gruppen + prim. Amin; <strong>basisch</strong> (IEP ~9,7–10,0).</div></div>
+        <div class="aa-card"><div class="aa-head"><span class="aa-name">19. Arginin</span><span class="aa-code cat-base">Arg / R</span></div><div style="font-size:0.83rem;"><strong>Rest R:</strong> <code>–(CH2)3–NH–C(=NH)NH2</code><br><em>Merkmal:</em> 3 CH<sub>2</sub> + Guanidino-Gruppe (3 N); <strong>stärkste Base</strong> (IEP ~10,8).</div></div>
+        <div class="aa-card"><div class="aa-head"><span class="aa-name">20. Histidin</span><span class="aa-code cat-base">His / H</span></div><div style="font-size:0.83rem;"><strong>Rest R:</strong> <code>–CH2–Imidazol</code><br><em>Merkmal:</em> Aromatischer Fünfring mit 2 N; <strong>schwach basisch</strong> (IEP ~7,6).</div></div>
+    </div>
+
+    <div class="grid-2">
+        <div class="card">
+            <h3>Isoelektrischer Punkt (IEP) &amp; Zwitterion (Seminar 55 &amp; Klausur)</h3>
+            <p style="font-size: 0.9rem;">Am <strong>Isoelektrischen Punkt (pH = IEP)</strong> und bei neutralem pH 7 liegen neutrale Aminosäuren zu fast 100% als <strong>Zwitterion</strong> vor: Die Carbonsäure ist deprotoniert (<code>–COO<sup>−</sup></code>) und die Aminogruppe ist protoniert (<code>–NH<sub>3</sub><sup>+</sup></code>, vierbindiger Stickstoff!). Die Netto-Gesamtladung ist <strong>0</strong>.</p>
+
+            <div class="box box-shortcut">
+                <span class="box-title">Das IEP-Rechenrezept (funktioniert bei JEDER Klausurfrage!)</span>
+                <ul>
+                    <li><strong>1. Neutrale Aminosäure (2 pK<sub>S</sub>-Werte gegeben, z. B. Leucin in Sem 55a):</strong><br>
+                    <code>IEP = (pK1 + pK2) / 2</code> &rarr; Leucin (2,34 und 9,74): <code>(2,34 + 9,74) / 2 = 6,04</code>.</li>
+                    <li><strong>2. Saure Aminosäure (Asparaginsäure, Glutaminsäure – 3 pK<sub>S</sub>-Werte gegeben):</strong><br>
+                    Nimm den <strong>Mittelwert der ZWEI KLEINSTEN pK<sub>S</sub>-Werte</strong> (also <code>pK1</code> und <code>pK2</code>)!<br>
+                    • <strong>Glutaminsäure (Klausur 2025 #12: 2,16 | 4,32 | 9,95):</strong> <code>(2,16 + 4,32) / 2 = 3,24</code>.<br>
+                    • <strong>Asparaginsäure (Klausur 2011 #18: 1,88 | 3,65 | 9,60):</strong> <code>(1,88 + 3,65) / 2 = 2,765</code>.</li>
+                    <li><strong>3. Basische Aminosäure (Lysin, Histidin, Arginin – 3 pK<sub>S</sub>-Werte gegeben):</strong><br>
+                    Nimm den <strong>Mittelwert der ZWEI GRÖSSTEN pK<sub>S</sub>-Werte</strong> (also <code>pK2</code> und <code>pK3</code>)!<br>
+                    • <strong>Lysin (2023/2024: 2,18 | 8,95 | 10,95):</strong> <code>(8,95 + 10,95) / 2 = 9,95</code>.<br>
+                    • <strong>Lysin (2021 #39 &amp; Bsp-Klausur: 2,18 | 8,95 | 10,53):</strong> <code>(8,95 + 10,53) / 2 = 9,74</code>.<br>
+                    • <strong>Histidin (Seminar 55b: 1,81 | 6,05 | 9,15):</strong> <code>(6,05 + 9,15) / 2 = 7,60</code> (Am IEP von 7,60 ist der Imidazolring mit pK<sub>S2</sub>=6,05 bereits <u>deprotoniert/ungeladen</u>, α-NH<sub>3</sub><sup>+</sup> und α-COO<sup>−</sup> bilden das Zwitterion!).</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>Transaminierung (Seminar 47A) &amp; Cystein/Cystin</h3>
+            <p style="font-size: 0.9rem;"><strong>Seminar-Aufgabe 47A (Synthese von L-Alanin durch Transaminase):</strong><br>
+            Bei der Transaminierung wird die <code>–NH<sub>2</sub></code>-Gruppe einer Aminosäure (<strong>L-Glutamat</strong>) gegen die Keto-Gruppe (<code>C=O</code>) einer α-Ketosäure (<strong>Pyruvat</strong>) getauscht:</p>
+            <div class="box box-info">
+                <code>Pyruvat + L-Glutamat &rightleftharpoons; L-Alanin + α-Ketoglutarat</code><br>
+                • <strong>Pyruvat</strong> (<code>H3C–C(=O)–COO-</code>) wird zu <strong>L-Alanin</strong> (<code>H3C–CH(NH3+)–COO-</code>).<br>
+                • <strong>L-Glutamat</strong> (5 C mit NH<sub>3</sub><sup>+</sup>) wird zu <strong>α-Ketoglutarat</strong> (<code>-OOC–CH2–CH2–C(=O)–COO-</code>).
+            </div>
+
+            <h4>Cystein vs. Cystin &amp; Glutathion (Klausur 2009 #10, #12)</h4>
+            <ul style="font-size: 0.88rem;">
+                <li><strong>Oxidation / Reduktion:</strong> Zwei Moleküle <strong>Cystein</strong> (Thiol <code>–SH</code>, 1 Stereozentrum) oxidieren unter Abgabe von 2 H zu einem Molekül <strong>Cystin</strong> (Disulfidbrücke <code>–S–S–</code>, hat <strong>2 Chiralitätszentren</strong>!). Umgekehrt entsteht Cystein aus Cystin durch <strong>Reduktion</strong>.</li>
+                <li><strong>Falle Isoelektrischer Punkt (2009 #10 &amp; #12):</strong> <em>Jedes</em> Molekül (egal ob Cystein, Cystin oder das Tripeptid Glutathion) besitzt immer <strong>genau EINEN</strong> isoelektrischen Punkt (den einen pH-Wert, bei dem die Gesamtladung des Gesamtmoleküls 0 ist)! Die Aussage „Es hat zwei isoelektrische Punkte“ ist immer falsch!</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- KAPITEL 3: PEPTIDE & PROTEINE -->
+    <div class="section-title" id="proteine">
+        <span>3. Peptide lesen &amp; Proteinstrukturen (Primär bis Quartär)</span>
+        <span class="section-freq">In 100% der Klausuren</span>
+    </div>
+
+    <div class="grid-2">
+        <div class="card">
+            <h3>Peptide lesen &amp; Kombinatorik (Seminar 22 &amp; Klausur)</h3>
+            <ul style="font-size: 0.89rem;">
+                <li><strong>Leserichtung:</strong> Immer vom <strong>N-Terminus</strong> (freies <code>H2N–</code> bzw. <code>H3N+–</code>, links) zum <strong>C-Terminus</strong> (freies <code>–COOH</code> bzw. <code>–COO-</code>, rechts)! (Klausur 2015 #10: Links CH<sub>2</sub> [Gly], Mitte Benzyl [Phe], rechts CH<sub>3</sub> [Ala] &rarr; <strong>Gly-Phe-Ala</strong>, nicht Ala-Phe-Gly!).</li>
+                <li><strong>Anzahl Peptidbindungen &amp; Wasser bei Hydrolyse (Klausur 2011 #11):</strong><br>
+                Ein Peptid aus <code>n</code> Aminosäuren besitzt <strong><code>n − 1</code> Peptidbindungen</strong>! Ein <strong>Tripeptid</strong> (z. B. Ala-Ala-Tyr) hat also nur <strong>2 Peptidbindungen</strong> und benötigt zur vollständigen Spaltung (Hydrolyse) nur <strong>2 Äquivalente Wasser</strong> (nicht 3!).</li>
+                <li><strong>Seminar-Aufgabe 22 (Tripeptide aus 2x Alanin und 1x Tyrosin):</strong><br>
+                Es gibt genau 3 Sequenz-Isomere: <strong>Ala-Ala-Tyr</strong>, <strong>Ala-Tyr-Ala</strong> und <strong>Tyr-Ala-Ala</strong>.</li>
+                <li><strong>Klausur 2021 #37 (Peptidbindung His–Lys):</strong> Die Peptidbindung (<code>–C(=O)–NH–</code>) verknüpft die α-Carboxylgruppe von Histidin mit der <strong>α-Aminogruppe</strong> von Lysin (nicht mit der Seitenketten-NH<sub>2</sub>!). Lysin hat in der Seitenkette exakt <strong>4 CH<sub>2</sub>-Gruppen</strong>.</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h3>Die 4 Ebenen der Proteinstruktur (Seminar 56, 58 &amp; Klausur)</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Strukturebene</th>
+                        <th>Definition &amp; Stabilisierende Kräfte (Klausur-Wortlaut!)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>1. Primärstruktur</strong><br><span class="pill">5x Klausur!</span></td>
+                        <td><strong>Reihenfolge (Sequenz) der Aminosäuren</strong> in der Kette, verknüpft durch kovalente <strong>Peptidbindungen (Amidbindungen)</strong>.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>2. Sekundärstruktur</strong><br><span class="pill">2011, 2018, 2025, Sem 58</span></td>
+                        <td><strong>Regelmäßige lokale Strukturelemente</strong> (<strong>α-Helix</strong> und <strong>β-Faltblatt</strong>), stabilisiert durch <strong>Wasserstoffbrückenbindungen des Peptidrückgrats</strong> (<code>N–H &middot;&middot;&middot; O=C</code>, ohne Beteiligung der Seitenketten!).<br>
+                        <em>Seminar 58:</em> <strong>α-Helix</strong> = H-Brücken <u>innerhalb</u> eines Strangs (schraubenförmig, jede C=O zur N–H 4 AS weiter); <strong>β-Faltblatt</strong> = H-Brücken <u>zwischen</u> benachbarten Peptidsträngen (Klausur 2017/2018 #33!).</td>
+                    </tr>
+                    <tr>
+                        <td><strong>3. Tertiärstruktur</strong><br><span class="pill">2009, 2019</span></td>
+                        <td>Dreidimensionale Faltung einer gesamten Polypeptidkette durch <strong>Wechselwirkungen der Seitenketten (R)</strong>: kovalente <strong>Disulfidbrücken (Cystein!)</strong>, hydrophobe WW, Ionenbindungen, H-Brücken.<br>
+                        <em>Falle 2009 #11:</em> <strong>Phosphodiesterbindungen</strong> gehören zur DNA/RNA, NICHT zur Tertiärstruktur!</td>
+                    </tr>
+                    <tr>
+                        <td><strong>4. Quartärstruktur</strong><br><span class="pill">2017, 2018, Sem 56</span></td>
+                        <td>Zusammenlagerung <strong>mehrerer einzelner Peptid-Untereinheiten</strong> zu einem Gesamtkomplex.<br>
+                        <em>Seminar 56 (Hämoglobin-Bild):</em> Die Spiralen = Sekundärstruktur (α-Helix); die 3D-Knäuelform einer einzelnen farbigen Untereinheit = Tertiärstruktur; das Zusammenspiel aller <strong>4 verschiedenfarbigen Untereinheiten</strong> (2α, 2β + 4 Häm-Gruppen) = <strong>Quartärstruktur</strong>!</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- KAPITEL 4: NUKLEINSÄUREN & LIPIDE -->
+    <div class="section-title" id="nukleinsaeuren">
+        <span>4. Nukleobasen (Purin/Pyrimidin), Nukleotide &amp; Fettsäuren</span>
+        <span class="section-freq">In 100% der Klausuren</span>
+    </div>
+
+    <div class="grid-2">
+        <div class="card">
+            <h3>Purin &amp; Pyrimidin als Ausgangsgerüst + Alle 5 Basen</h3>
+            <p style="font-size: 0.9rem;">Alle Stickstoffbasen der DNA und RNA leiten sich von zwei heteroaromatischen Stammverbindungen ab:</p>
+            <ul style="font-size: 0.88rem;">
+                <li><strong>Pyrimidin (1 Sechsring mit 2 N an Position 1 und 3):</strong> Ausgangsgerüst für die 3 kleinen Basen <strong>Cytosin (C), Uracil (U) und Thymin (T)</strong>. <em>Eselsbrücke: „CUT the Py(rimidin)“ (einen Kuchen schneiden).</em></li>
+                <li><strong>Purin (Doppelring = Pyrimidin-Sechsring + Imidazol-Fünfring, 4 N an 1, 3, 7, 9):</strong> Ausgangsgerüst für die 2 großen Basen <strong>Adenin (A) und Guanin (G)</strong>. <em>(Kurzer Name „Purin“ = großes Doppelring-Molekül!).</em></li>
+            </ul>
+
+            <div class="box box-shortcut">
+                <span class="box-title">Der 3-Sekunden-Erkennungscode für alle 5 Nukleobasen (Klausur 2015–2021)</span>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Base</th>
+                            <th>Ringtyp</th>
+                            <th>Erkennungsmerkmal im Bild</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Adenin (A)</strong></td>
+                            <td>Purin (2 Ringe)</td>
+                            <td>Hat eine <code>–NH2</code> Gruppe oben (C6) und <strong>KEINEN Sauerstoff (kein C=O)</strong>!</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Guanin (G)</strong></td>
+                            <td>Purin (2 Ringe)</td>
+                            <td>Hat oben ein <code>C=O</code> (C6) UND unten links eine <code>–NH2</code> Gruppe (C2)! <em>(Falle 2021 #34: Steht dort CH<sub>3</sub> statt NH<sub>2</sub>, ist es keine natürliche Base!).</em></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Cytosin (C)</strong></td>
+                            <td>Pyrimidin (1 Ring)</td>
+                            <td>Hat oben eine <code>–NH2</code> Gruppe (C4) und unten ein <code>C=O</code> (C2).</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Uracil (U)</strong> <span class="pill">nur RNA</span></td>
+                            <td>Pyrimidin (1 Ring)</td>
+                            <td>Hat <strong>zwei <code>C=O</code> Gruppen</strong>, kein NH<sub>2</sub> und <strong>KEINE Methylgruppe</strong>!</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Thymin (T)</strong> <span class="pill">nur DNA</span></td>
+                            <td>Pyrimidin (1 Ring)</td>
+                            <td>Wie Uracil (<strong>zwei <code>C=O</code></strong>), aber <strong>MIT einer Methylgruppe (<code>–CH3</code>) an C5</strong>! (= 5-Methyluracil, Beispielklausur!).</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h4>Nukleosid vs. Nukleotid (Seminar 50, 57 &amp; Klausur 2021, 2023, 2024)</h4>
+            <ul style="font-size: 0.88rem;">
+                <li><strong>Nukleosid = Base + Zucker</strong> (verknüpft über eine <strong>β-N-glycosidische Bindung</strong> vom C1' des Zuckers zum N9 bei Purinen bzw. N1 bei Pyrimidinen; zeigt immer nach <strong>oben = β</strong>!).<br>
+                <em>Seminar 57 (von links nach rechts):</em> 1. <strong>2'-Desoxyadenosin</strong> (Adenin + Desoxyribose, da an C2' kein OH!), 2. <strong>Guanosin</strong> (Guanin + Ribose), 3. <strong>Cytidin</strong> (Cytosin + Ribose), 4. <strong>Thymidin / 2'-Desoxythymidin</strong> (Thymin + Desoxyribose).</li>
+                <li><strong>Nukleotid = Base + Zucker + 1 bis 3 Phosphatgruppen</strong> an C5' (Phosphorsäureester + Phosphorsäureanhydridbindungen).<br>
+                • <em>Klausur 2023/2024:</em> Thymin + Desoxyribose + Triphosphat (dTTP) = <strong>Nukleotid</strong>!<br>
+                • <em>Klausur 2021 #40 &amp; Sem 50 (GTP):</em> Enthält <strong>Guanin, β-Verknüpfung und Ribose</strong> (2 OH unten!).<br>
+                • <em>Seminar 50 (SAM &amp; NADP<sup>+</sup>):</em> Beide enthalten das Nukleosid <strong>Adenosin</strong> (Adenin + β-D-Ribofuranose). SAM (S-Adenosylmethionin) enthält zusätzlich die Aminosäure Methionin als Sulfonium-Kation; NADP<sup>+</sup> enthält zusätzlich Nicotinamid (Pyridinring mit Carbonsäureamid).</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h3>Fette (Triglyceride) &amp; Omega-Fettsäuren (Seminar 53 &amp; Klausur)</h3>
+            <ul style="font-size: 0.89rem;">
+                <li><strong>Was sind Fette chemisch (Klausur 2009, 2011, 2015, 2017)?</strong><br>
+                Fette (Triacylglycerine) sind <strong>dreifache Carbonsäureester (Triester)</strong> aus dem dreiwertigen Alkohol <strong>Glycerin</strong> (Propan-1,2,3-triol) und <strong>drei Fettsäuren</strong>.<br>
+                <em>Beliebteste Klausur-Falle:</em> In den falschen Antworten steht <strong>„Glycin“</strong> (die Aminosäure!) statt <strong>„Glycerin“</strong> oder „Ether“ statt „Ester“!</li>
+                <li><strong>Allgemeine Formel von Fettsäuren (Seminar 53):</strong><br>
+                Unverzweigte Monocarbonsäuren <code>R–COOH</code> mit einer geraden Anzahl an C-Atomen (meist 14–22 C). Gesättigt: <code>C<sub>n</sub>H<sub>2n+1</sub>COOH</code>.<br>
+                • <strong>Wichtige Kettenlängen (Klausur 2009 #24):</strong> Ameisensäure (1 C), Essigsäure (2 C), Propionsäure (3 C), Buttersäure/Butansäure (4 C), <strong>Palmitinsäure</strong> = Hexadecansäure (<strong>16 C</strong>, gesättigt), <strong>Stearinsäure</strong> = Octadecansäure (<strong>18 C</strong>, gesättigt).</li>
+            </ul>
+
+            <div class="box box-shortcut">
+                <span class="box-title">Der Omega (ω)-Zähltrick für ungesättigte Fettsäuren (Sem 53 &amp; Klausur 2015/2017)</span>
+                <p>Während man nach IUPAC am <code>–COOH</code> mit C1 anfängt, zählt man bei der <strong>Omega (ω)-Nomenklatur vom entgegengesetzten Ende – also vom letzten <code>–CH3</code>-Kohlenstoffatom (= ω-1) – rückwärts</strong> bis zum Beginn der <strong>allerersten C=C-Doppelbindung</strong>!</p>
+                <div class="svg-container" style="margin: 0.5rem 0; padding: 0.5rem;">
+                    <svg viewBox="0 0 480 65" width="100%" height="auto">
+                        <polyline points="20,40 55,20 90,40 125,20 160,40 195,20 230,40 265,20 300,40" fill="none" stroke="#0f172a" stroke-width="2.5"/>
+                        <line x1="195" y1="26" x2="228" y2="45" stroke="#dc2626" stroke-width="2.5"/>
+                        <text x="10" y="55" font-size="11" font-weight="bold" fill="#0284c7">ω-1 (CH₃)</text>
+                        <text x="48" y="14" font-size="10" font-weight="bold" fill="#0284c7">2</text>
+                        <text x="86" y="55" font-size="10" font-weight="bold" fill="#0284c7">3</text>
+                        <text x="121" y="14" font-size="10" font-weight="bold" fill="#0284c7">4</text>
+                        <text x="156" y="55" font-size="10" font-weight="bold" fill="#0284c7">5</text>
+                        <circle cx="195" cy="20" r="5" fill="#dc2626"/>
+                        <text x="180" y="12" font-size="11" font-weight="bold" fill="#dc2626">ω-6 (1. DB!)</text>
+                        <text x="315" y="35" font-size="11" font-weight="bold" fill="#475569">... — C(=O)—O—Glycerin</text>
+                    </svg>
+                </div>
+                <ul>
+                    <li><strong>Omega-3-Fettsäure (Seminar 53):</strong> Die erste Doppelbindung startet am <strong>3. C-Atom</strong> vom CH<sub>3</sub>-Ende aus (<code>H3C–CH2–CH=CH–...</code>, z. B. α-Linolensäure).</li>
+                    <li><strong>Omega-6-Fettsäure (Klausur 2015 #15, 2017 #22):</strong> Vom CH<sub>3</sub>-Ende gezählt beginnt die erste Doppelbindung am <strong>6. C-Atom</strong> &rarr; richtige Antwort: <strong>„Glycerin, Ester, Omega-6-Fettsäuren“</strong>!</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- KAPITEL 5: ULTIMATIVER SPICKZETTEL -->
+    <div class="section-title" id="spickzettel">
+        <span>5. Der 5-Minuten-Spickzettel vor der Klausur (Alle 4 Module)</span>
+        <span class="section-freq">100% High-Yield Zusammenfassung</span>
+    </div>
+
+    <div class="grid-2">
+        <div class="card">
+            <h3>AC Schnell-Checkliste</h3>
+            <ul style="font-size: 0.86rem;">
+                <li><strong>Nuklide:</strong> Neutronen = <code>A − Z</code> | Elektronen = <code>Z − Ladung</code> (bei 2− also +2 e<sup>−</sup>!).</li>
+                <li><strong>Edelgaskonfiguration:</strong> 2 (He: H<sup>−</sup>, Li<sup>+</sup>), 10 (Ne: O<sup>2−</sup>, F<sup>−</sup>, Na<sup>+</sup>, Al<sup>3+</sup>), 18 (Ar: S<sup>2−</sup>, Cl<sup>−</sup>).</li>
+                <li><strong>Orbitale pro Unterschale:</strong> s = 1, p = 3, d = 5, f = 7 (Elektronen doppelt so viele: 2, 6, 10, 14).</li>
+                <li><strong>EN-Leiter (2. Periode):</strong> Li (1,0) &rarr; Be (1,5) &rarr; B (2,0) &rarr; C (2,5) &rarr; N (3,0) &rarr; O (3,5) &rarr; F (4,0).</li>
+                <li><strong>Keine kovalente Bindung:</strong> KF, BaCl<sub>2</sub>, NaCl (Vorsicht: NaOH und Na<sub>3</sub>PO<sub>4</sub> haben kovalente Bindungen im Anion!).</li>
+                <li><strong>Kein freies Elektronenpaar:</strong> CH<sub>4</sub>, C<sub>2</sub>H<sub>6</sub>, C<sub>2</sub>H<sub>2</sub> (Ethin), BH<sub>3</sub> (Vorsicht: BF<sub>3</sub> hat 9 freie Paare an den F-Atomen!).</li>
+                <li><strong>VSEPR-Geometrie:</strong> CO<sub>2</sub> linear (sp) | BF<sub>3</sub>, CO<sub>3</sub><sup>2−</sup> trigonal-planar (sp²) | CH<sub>4</sub> tetraedrisch (sp³) | NH<sub>3</sub> trigonal-pyramidal (sp³, 1 freies Paar) | H<sub>2</sub>O gewinkelt (sp³, 2 freie Paare).</li>
+                <li><strong>Prozent &rarr; mol/L:</strong> <code>c = (% &middot; 10) / M</code> &rarr; 12% Essigsäure (M=60) = <strong>2 mol/L</strong> | 46% Ameisensäure (M=46) = <strong>10 mol/L</strong> | Reines Wasser = <strong>55,5 mol/L</strong>.</li>
+                <li><strong>Oxidationszahlen:</strong> KMnO<sub>4</sub> (+VII), Cr<sub>2</sub>O<sub>7</sub><sup>2−</sup> (+VI), HNO<sub>3</sub> (+V), NO<sub>2</sub> (+IV), HNO<sub>2</sub> (+III), NO (+II), NH<sub>3</sub> &amp; Amine (<strong>−III</strong>).</li>
+                <li><strong>Komplexe:</strong> K<sub>4</sub>[Fe(CN)<sub>6</sub>] &rarr; KZ=6, OZ=+II | K<sub>3</sub>[Fe(CN)<sub>6</sub>] &rarr; KZ=6, OZ=+III | K<sub>2</sub>[Ni(CN)<sub>4</sub>] &rarr; KZ=4, OZ=+II.</li>
+                <li><strong>pH &amp; Puffer:</strong> Starke Säure: <code>pH = −lg c(H+)</code> (0,5 M H<sub>2</sub>SO<sub>4</sub> &rarr; pH 0!) | Schwache Säure: <code>pH = 0,5 &middot; (pKs − lg c)</code> | Puffer: <code>pH = pKs + lg(Base/Säure)</code>.</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h3>OC Schnell-Checkliste</h3>
+            <ul style="font-size: 0.86rem;">
+                <li><strong>Summenformeln:</strong> Diazepam <code>C16H13ClN2O</code> | Penicillin V <code>C16H18N2O5S</code> | PGE<sub>1</sub> <code>C20H34O5</code> | Cortison <code>C21H28O5</code>.</li>
+                <li><strong>Amin vs. Alkohol:</strong> <em>tert</em>-Butylamin ist ein <strong>primäres Amin</strong> (nur 1 C am N)! Trimethylamin &amp; Triethylamin sind tertiäre Amine.</li>
+                <li><strong>Aromaten (4n+2 = 6 π):</strong> Cp<sup>−</sup>-Anion und Tropylium-Kation (C<sub>7</sub>H<sub>7</sub><sup>+</sup>) = JA! Cp<sup>+</sup>-Kation, Cyclobutadien, Chinon, 2H-Pyran = NEIN!</li>
+                <li><strong>Benzol + Br<sub>2</sub>/FeBr<sub>3</sub>:</strong> Elektrophile <strong>Substitution</strong> (nicht Addition!).</li>
+                <li><strong>Mesomerie vs. Tautomerie:</strong> Mesomerie = Pfeil <code>&longleftrightarrow;</code> (nur e<sup>−</sup> wandern) | Tautomerie = Pfeil <code>&rightleftharpoons;</code> (H wandert, Keto &rightleftharpoons; Enol).</li>
+                <li><strong>Zucker-Beziehungen:</strong> Glc &harr; Fru (oder Rib &harr; Ribulose) = <strong>Konstitutionsisomere</strong> | Glc &harr; Gal = <strong>C4-Epimere</strong> | α &harr; β = <strong>Anomere</strong> | D &harr; L = <strong>Enantiomere</strong>.</li>
+                <li><strong>Glycosidische Bindungen:</strong> Lactose = <strong>β-1,4</strong> | Isomaltose = <strong>α-1,6</strong> | Saccharose = <strong>α,β-1,2</strong> | Cellulose &amp; Chitin = <strong>β-1,4</strong>.</li>
+                <li><strong>IEP-Rechnung:</strong> Sauer (Asp, Glu) = Schnitt der 2 kleinsten pK<sub>S</sub> | Basisch (Lys, His) = Schnitt der 2 größten pK<sub>S</sub>.</li>
+                <li><strong>Nukleobasen:</strong> Adenin (2 Ringe, NH<sub>2</sub>, kein O) | Guanin (2 Ringe, C=O + NH<sub>2</sub>) | Cytosin (1 Ring, NH<sub>2</sub> + 1 C=O) | Uracil (1 Ring, 2 C=O) | Thymin (1 Ring, 2 C=O + <strong>CH<sub>3</sub></strong>).</li>
+            </ul>
+        </div>
+    </div>
+
+</div>
+
+<script>
+// ============================================================================
+// SVG GENERATOR FÜR STRUKTURFORMELN (20 Aminosäuren, Zucker, Basen)
+// ============================================================================
+function aaSVG(rGroupSVG, note) {
+    return `<svg viewBox="0 0 360 150" width="100%" height="150">
+        <!-- Backbone Zwitterion -->
+        <rect x="8" y="8" width="165" height="22" rx="4" fill="#f1f5f9"/>
+        <text x="15" y="23" font-size="10" font-weight="bold" fill="#64748b">Grundgerüst (pH 7) + Seitenkette R (rot)</text>
+        <text x="20" y="68" font-size="13" font-weight="bold" fill="#0284c7">⁺H₃N</text>
+        <line x1="58" y1="63" x2="88" y2="63" stroke="#0f172a" stroke-width="2.2"/>
+        <circle cx="98" cy="63" r="11" fill="#e2e8f0" stroke="#0f172a" stroke-width="1.8"/>
+        <text x="91" y="67" font-size="11" font-weight="bold">Cα</text>
+        <line x1="98" y1="52" x2="98" y2="34" stroke="#0f172a" stroke-width="2"/>
+        <text x="93" y="30" font-size="12" font-weight="bold" fill="#64748b">H</text>
+        <line x1="109" y1="63" x2="140" y2="63" stroke="#0f172a" stroke-width="2.2"/>
+        <text x="143" y="68" font-size="13" font-weight="bold">COO⁻</text>
+        <!-- Bond to R -->
+        <line x1="98" y1="74" x2="98" y2="96" stroke="#dc2626" stroke-width="2.8"/>
+        <!-- R Group Box -->
+        <g transform="translate(0, 0)">${rGroupSVG}</g>
+    </svg>`;
+}
+
+function fischerHexoseSVG(c2R, c3R, c4R, c5R, topLabel) {
+    const row = (y, isRight) => isRight
+        ? `<text x="125" y="${y+4}" font-size="12" fill="#64748b">H</text><line x1="140" y1="${y}" x2="210" y2="${y}" stroke="#0f172a" stroke-width="2"/><text x="216" y="${y+4}" font-size="12" font-weight="bold" fill="#dc2626">OH</text>`
+        : `<text x="115" y="${y+4}" font-size="12" font-weight="bold" fill="#0284c7">HO</text><line x1="140" y1="${y}" x2="210" y2="${y}" stroke="#0f172a" stroke-width="2"/><text x="216" y="${y+4}" font-size="12" fill="#64748b">H</text>`;
+    return `<svg viewBox="0 0 350 165" width="100%" height="160">
+        <text x="175" y="18" text-anchor="middle" font-size="12" font-weight="bold" fill="#4f46e5">${topLabel}</text>
+        <line x1="175" y1="24" x2="175" y2="140" stroke="#0f172a" stroke-width="2.2"/>
+        ${row(45, c2R)}
+        ${row(72, c3R)}
+        ${row(99, c4R)}
+        ${row(126, c5R)}
+        <text x="175" y="156" text-anchor="middle" font-size="12" font-weight="bold">CH₂OH</text>
+    </svg>`;
+}
+
+const DECK_DATA = [
+    // --- 20 AMINOSÄUREN ---
+    { cat: "AA", catName: "Aminosäure (Unpolar)", q: "Welche Aminosäure ist hier dargestellt? (Name, 3-/1-Code & Besonderheit)",
+      svg: aaSVG(`<text x="92" y="114" font-size="15" font-weight="bold" fill="#dc2626">H</text>`),
+      a: "<strong>Glycin (Gly / G)</strong><br>• Rest: <code>–H</code><br>• <strong>Klausur-Fakt:</strong> Einzige <strong>achirale</strong> proteinogene Aminosäure (kein Stereozentrum, da 2 H am Cα!)." },
+    { cat: "AA", catName: "Aminosäure (Unpolar)", q: "Welche Aminosäure ist hier dargestellt?",
+      svg: aaSVG(`<text x="85" y="114" font-size="15" font-weight="bold" fill="#dc2626">CH₃</text>`),
+      a: "<strong>Alanin (Ala / A)</strong><br>• Rest: <code>–CH3</code> (Methylgruppe)<br>• Entsteht im Stoffwechsel durch Transaminierung aus Pyruvat (Seminar 47)." },
+    { cat: "AA", catName: "Aminosäure (Unpolar)", q: "Welche verzweigtkettige Aminosäure ist hier dargestellt?",
+      svg: aaSVG(`<text x="85" y="112" font-size="13" font-weight="bold" fill="#dc2626">CH</text><line x1="82" y1="115" x2="60" y2="135" stroke="#dc2626" stroke-width="2.2"/><line x1="108" y1="115" x2="130" y2="135" stroke="#dc2626" stroke-width="2.2"/><text x="35" y="146" font-size="12" font-weight="bold" fill="#dc2626">H₃C</text><text x="128" y="146" font-size="12" font-weight="bold" fill="#dc2626">CH₃</text>`),
+      a: "<strong>Valin (Val / V)</strong><br>• Rest: <code>–CH(CH3)2</code> (Isopropyl-Rest)<br>• <strong>Merkhilfe:</strong> Die V-Gabel sitzt <em>direkt</em> am Cα (ohne CH₂ dazwischen!)." },
+    { cat: "AA", catName: "Aminosäure (Unpolar)", q: "Welche Aminosäure ist hier dargestellt? (Achte auf die CH₂-Gruppe!)",
+      svg: aaSVG(`<text x="85" y="112" font-size="13" font-weight="bold" fill="#dc2626">CH₂</text><line x1="114" y1="108" x2="145" y2="108" stroke="#dc2626" stroke-width="2.2"/><text x="148" y="112" font-size="13" font-weight="bold" fill="#dc2626">CH(CH₃)₂</text>`),
+      a: "<strong>Leucin (Leu / L)</strong><br>• Rest: <code>–CH2–CH(CH3)2</code> (Isobutyl-Rest)<br>• <strong>Klausur 2025 #9:</strong> Erst eine <code>–CH2–</code>-Gruppe, dann die V-Verzweigung!" },
+    { cat: "AA", catName: "Aminosäure (Unpolar)", q: "Welche Aminosäure mit 2 Stereozentren ist hier dargestellt?",
+      svg: aaSVG(`<text x="65" y="112" font-size="13" font-weight="bold" fill="#dc2626">*CH(CH₃)—CH₂—CH₃</text>`),
+      a: "<strong>Isoleucin (Ile / I)</strong><br>• Rest: <code>–CH(CH3)–CH2–CH3</code> (<em>sec</em>-Butyl)<br>• <strong>Seminar 28:</strong> Besitzt <strong>2 Stereozentren</strong> (Cα und Cβ)!" },
+    { cat: "AA", catName: "Aminosäure (Unpolar)", q: "Welche cyclische Aminosäure ist hier dargestellt?",
+      svg: `<svg viewBox="0 0 360 150" width="100%" height="150"><polygon points="140,45 190,45 205,95 165,125 125,95" fill="#fef2f2" stroke="#dc2626" stroke-width="2.5"/><text x="150" y="138" font-size="13" font-weight="bold" fill="#0284c7">NH₂⁺</text><text x="180" y="38" font-size="12" font-weight="bold">Cα</text><line x1="190" y1="45" x2="235" y2="45" stroke="#0f172a" stroke-width="2.2"/><text x="240" y="49" font-size="13" font-weight="bold">COO⁻</text></svg>`,
+      a: "<strong>Prolin (Pro / P)</strong><br>• Seitenkette bildet mit dem α-Stickstoff einen Pyrrolidin-Fünfring.<br>• Einzige proteinogene AS mit <strong>sekundärer Aminogruppe</strong>." },
+    { cat: "AA", catName: "Aminosäure (Aromatisch)", q: "Welche aromatische Aminosäure ist hier dargestellt?",
+      svg: aaSVG(`<text x="84" y="112" font-size="13" font-weight="bold" fill="#dc2626">CH₂</text><line x1="115" y1="108" x2="145" y2="108" stroke="#dc2626" stroke-width="2.2"/><polygon points="145,108 160,85 190,85 205,108 190,131 160,131" fill="#ede9fe" stroke="#5b21b6" stroke-width="2"/><circle cx="175" cy="108" r="12" fill="none" stroke="#5b21b6" stroke-width="1.5"/>`),
+      a: "<strong>Phenylalanin (Phe / F)</strong><br>• Rest: <code>–CH2–C6H5</code> (Benzylrest)<br>• Sehr häufig in Klausur-Tripeptiden (2015, 2021, 2024)!" },
+    { cat: "AA", catName: "Aminosäure (Aromatisch)", q: "Welche aromatische Aminosäure ist hier dargestellt?",
+      svg: aaSVG(`<text x="84" y="112" font-size="13" font-weight="bold" fill="#dc2626">CH₂</text><line x1="115" y1="108" x2="145" y2="108" stroke="#dc2626" stroke-width="2.2"/><polygon points="145,108 160,85 190,85 205,108 190,131 160,131" fill="#ede9fe" stroke="#5b21b6" stroke-width="2"/><circle cx="175" cy="108" r="12" fill="none" stroke="#5b21b6" stroke-width="1.5"/><line x1="205" y1="108" x2="230" y2="108" stroke="#dc2626" stroke-width="2"/><text x="234" y="112" font-size="13" font-weight="bold" fill="#dc2626">OH</text>`),
+      a: "<strong>Tyrosin (Tyr / Y)</strong><br>• Rest: <code>–CH2–C6H4–OH</code> (Phenol-Seitenkette)<br>• Seminar 22 &amp; 28: Aromatisch und durch die phenolische OH-Gruppe polar." },
+    { cat: "AA", catName: "Aminosäure (Aromatisch)", q: "Welche aromatische Aminosäure mit Doppelring (Heterocyclus) ist hier dargestellt?",
+      svg: aaSVG(`<text x="84" y="112" font-size="13" font-weight="bold" fill="#dc2626">CH₂</text><line x1="115" y1="108" x2="140" y2="108" stroke="#dc2626" stroke-width="2"/><polygon points="140,108 155,88 180,98 180,122 155,132" fill="#ede9fe" stroke="#5b21b6" stroke-width="2"/><polygon points="180,98 205,86 228,98 228,122 205,134 180,122" fill="#ede9fe" stroke="#5b21b6" stroke-width="2"/><text x="144" y="144" font-size="11" font-weight="bold" fill="#5b21b6">NH (Indol)</text>`),
+      a: "<strong>Tryptophan (Trp / W)</strong><br>• Rest: <code>–CH2–Indol</code> (aromatischer Bicyclus aus Benzol- + Pyrrolring)." },
+    { cat: "AA", catName: "Aminosäure (Polar)", q: "Welche polare Aminosäure ist hier dargestellt?",
+      svg: aaSVG(`<text x="84" y="114" font-size="14" font-weight="bold" fill="#dc2626">CH₂—OH</text>`),
+      a: "<strong>Serin (Ser / S)</strong><br>• Rest: <code>–CH2–OH</code> (primärer Alkohol)<br>• Klausur 2015 #29: Bei pH 7 liegt Serin als Zwitterion vor, die OH-Gruppe bleibt ungeladen!" },
+    { cat: "AA", catName: "Aminosäure (Polar)", q: "Welche polare Aminosäure mit 2 Stereozentren ist hier dargestellt?",
+      svg: aaSVG(`<text x="75" y="114" font-size="14" font-weight="bold" fill="#dc2626">*CH(OH)—CH₃</text>`),
+      a: "<strong>Threonin (Thr / T)</strong><br>• Rest: <code>–CH(OH)–CH3</code> (sekundärer Alkohol)<br>• <strong>Seminar 28:</strong> Besitzt neben Isoleucin als einzige AS ein <strong>zweites Stereozentrum</strong>!" },
+    { cat: "AA", catName: "Aminosäure (Polar / Schwefel)", q: "Welche schwefelhaltige Aminosäure ist hier dargestellt? Welche CIP-Konfiguration hat die L-Form?",
+      svg: aaSVG(`<text x="84" y="114" font-size="14" font-weight="bold" fill="#dc2626">CH₂—SH</text>`),
+      a: "<strong>Cystein (Cys / C)</strong><br>• Rest: <code>–CH2–SH</code> (Thiol / Mercapto)<br>• <strong>Seminar 19 &amp; 28:</strong> Natürliches L-Cystein hat als einzige proteinogene AS die <strong>(R)-Konfiguration</strong> (da Schwefel Prio 2 vor COOH hat!). Bildet Disulfidbrücken (Cystin)." },
+    { cat: "AA", catName: "Aminosäure (Unpolar / Schwefel)", q: "Welche schwefelhaltige Aminosäure (ohne freie SH-Gruppe) ist hier dargestellt?",
+      svg: aaSVG(`<text x="75" y="114" font-size="14" font-weight="bold" fill="#dc2626">CH₂—CH₂—S—CH₃</text>`),
+      a: "<strong>Methionin (Met / M)</strong><br>• Rest: <code>–CH2–CH2–S–CH3</code> (<strong>Thioether</strong>, kann KEINE Disulfidbrücken bilden!). Baustein von SAM (Seminar 50)." },
+    { cat: "AA", catName: "Aminosäure (Sauer)", q: "Welche saure Aminosäure (1 CH₂-Gruppe) ist hier dargestellt?",
+      svg: aaSVG(`<text x="80" y="114" font-size="14" font-weight="bold" fill="#dc2626">CH₂—COOH</text><text x="80" y="132" font-size="11" fill="#dc2626">(bzw. –COO⁻ bei pH 7)</text>`),
+      a: "<strong>Asparaginsäure / Aspartat (Asp / D)</strong><br>• Rest: <code>–CH2–COOH</code><br>• <strong>IEP (Klausur 2011):</strong> Mittelwert der zwei kleinsten pK<sub>S</sub>-Werte (~2,8)." },
+    { cat: "AA", catName: "Aminosäure (Sauer)", q: "Welche saure Aminosäure (2 CH₂-Gruppen) ist hier dargestellt?",
+      svg: aaSVG(`<text x="70" y="114" font-size="14" font-weight="bold" fill="#dc2626">CH₂—CH₂—COOH</text><text x="70" y="132" font-size="11" fill="#dc2626">(bzw. –COO⁻ bei pH 7)</text>`),
+      a: "<strong>Glutaminsäure / Glutamat (Glu / E)</strong><br>• Rest: <code>–CH2–CH2–COOH</code><br>• <strong>IEP (Klausur 2025):</strong> <code>(2,16 + 4,32) / 2 = 3,24</code>." },
+    { cat: "AA", catName: "Aminosäure (Polar / Neutral)", q: "Welche Aminosäure ist hier dargestellt? Reagiert die Seitenkette basisch?",
+      svg: aaSVG(`<text x="75" y="114" font-size="14" font-weight="bold" fill="#0284c7">CH₂—C(=O)—NH₂</text>`),
+      a: "<strong>Asparagin (Asn / N)</strong><br>• Säureamid der Asparaginsäure (1 CH<sub>2</sub>).<br>• <strong>Wichtig:</strong> Amide reagieren <strong>neutral</strong> (nicht basisch)!" },
+    { cat: "AA", catName: "Aminosäure (Polar / Neutral)", q: "Welche Aminosäure (2 CH₂ + Amid) ist hier dargestellt?",
+      svg: aaSVG(`<text x="65" y="114" font-size="14" font-weight="bold" fill="#0284c7">CH₂—CH₂—C(=O)—NH₂</text>`),
+      a: "<strong>Glutamin (Gln / Q)</strong><br>• Säureamid der Glutaminsäure (2 CH<sub>2</sub>, neutral)." },
+    { cat: "AA", catName: "Aminosäure (Basisch)", q: "Welche basische Aminosäure ist hier dargestellt? Wie berechnet man ihren IEP?",
+      svg: aaSVG(`<text x="65" y="114" font-size="14" font-weight="bold" fill="#16a34a">(CH₂)₄—NH₂  (bzw. –NH₃⁺)</text>`),
+      a: "<strong>Lysin (Lys / K)</strong><br>• Rest: <strong>4 CH<sub>2</sub>-Gruppen</strong> + primäres Amin.<br>• <strong>IEP (Klausur 2020–2024):</strong> Mittelwert der <strong>zwei größten pK<sub>S</sub>-Werte</strong> (~9,74 bzw. 9,95)!" },
+    { cat: "AA", catName: "Aminosäure (Basisch)", q: "Welche stark basische Aminosäure mit Guanidino-Gruppe (3 N in der Seitenkette) ist hier dargestellt?",
+      svg: aaSVG(`<text x="45" y="114" font-size="13.5" font-weight="bold" fill="#16a34a">(CH₂)₃—NH—C(=NH₂⁺)—NH₂</text>`),
+      a: "<strong>Arginin (Arg / R)</strong><br>• Rest: 3 CH<sub>2</sub> + <strong>Guanidino-Gruppe</strong> (mesomeriestabilisiert, stärkste Base unter den AS, IEP ~10,8)." },
+    { cat: "AA", catName: "Aminosäure (Basisch / Heterocyclus)", q: "Welche basische Aminosäure mit Imidazol-Fünfring ist hier dargestellt?",
+      svg: aaSVG(`<text x="84" y="112" font-size="13" font-weight="bold" fill="#16a34a">CH₂</text><line x1="115" y1="108" x2="145" y2="108" stroke="#16a34a" stroke-width="2.2"/><polygon points="145,108 162,85 192,92 192,124 162,131" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/><text x="155" y="82" font-size="11" font-weight="bold" fill="#16a34a">NH</text><text x="196" y="112" font-size="11" font-weight="bold" fill="#16a34a">=N (Imidazol)</text>`),
+      a: "<strong>Histidin (His / H)</strong><br>• Rest: <code>–CH2–Imidazol</code> (Fünfring mit 2 N in 1,3-Stellung, aromatisch).<br>• <strong>Seminar 55b (pK<sub>S</sub> 1,81 | 6,05 | 9,15):</strong> <code>IEP = (6,05 + 9,15)/2 = 7,60</code>." },
+
+    // --- ZUCKER (EINFACH- & MEHRFACHZUCKER) ---
+    { cat: "SUGAR", catName: "Monosaccharid (Aldohexose)", q: "Welcher Zucker ist in dieser Fischer-Projektion dargestellt? (Muster: rechts – links – rechts – rechts)",
+      svg: fischerHexoseSVG(true, false, true, true, "CHO (C1)"),
+      a: "<strong>D-Glucose</strong> (Traubenzucker)<br>• <strong>Aldohexose</strong> (6 C, Aldehyd an C1).<br>• Merkspruch: <strong>ta – tü – ta – ta</strong> (rechts – links – rechts – rechts)." },
+    { cat: "SUGAR", catName: "Monosaccharid (Aldohexose)", q: "Welcher Zucker ist in dieser Fischer-Projektion dargestellt? In welchem Verhältnis steht er zu D-Glucose?",
+      svg: fischerHexoseSVG(true, true, false, false, "CHO (C1)"),
+      a: "<strong>L-Glucose</strong> (Klausur 2009/2011 #39)<br>• Muster: links – rechts – links – links (C5 steht links = L!).<br>• Steht zu D-Glucose im Verhältnis von <strong>Enantiomeren</strong> (Spiegelbild)." },
+    { cat: "SUGAR", catName: "Monosaccharid (Aldohexose)", q: "Welcher Zucker ist hier dargestellt? (Muster: rechts – links – LINKS – rechts)",
+      svg: fischerHexoseSVG(true, false, false, true, "CHO (C1)"),
+      a: "<strong>D-Galactose</strong> (Schleimzucker)<br>• Unterscheidet sich von D-Glucose <strong>nur an C4</strong> &rarr; <strong>C4-Epimer</strong> der D-Glucose (Klausur 2025 #22)!" },
+    { cat: "SUGAR", catName: "Monosaccharid (Aldohexose)", q: "Welcher Zucker ist hier dargestellt? (Muster: LINKS – links – rechts – rechts)",
+      svg: fischerHexoseSVG(false, false, true, true, "CHO (C1)"),
+      a: "<strong>D-Mannose</strong> (Seminar 23 &amp; 29)<br>• Unterscheidet sich von D-Glucose <strong>nur an C2</strong> &rarr; <strong>C2-Epimer</strong> der D-Glucose!" },
+    { cat: "SUGAR", catName: "Monosaccharid (Aldohexose)", q: "Welcher Zucker ist hier dargestellt? (Alle 4 OH-Gruppen rechts!)",
+      svg: fischerHexoseSVG(true, true, true, true, "CHO (C1)"),
+      a: "<strong>D-Allose</strong> (Seminar 29F)<br>• Oxidation mit konz. HNO<sub>3</sub> ergibt <strong>D-Allarsäure</strong> (oben und unten COOH, alle 4 OH rechts = <strong>meso-Verbindung</strong>, Klausur 2019 #25!)." },
+    { cat: "SUGAR", catName: "Monosaccharid (Ketohexose)", q: "Welcher Zucker ist hier dargestellt? In welchem Verhältnis steht er zu D-Glucose und D-Galactose?",
+      svg: `<svg viewBox="0 0 350 165" width="100%" height="160"><text x="175" y="18" text-anchor="middle" font-size="12" font-weight="bold">CH₂OH (C1)</text><line x1="175" y1="22" x2="175" y2="140" stroke="#0f172a" stroke-width="2.2"/><rect x="135" y="34" width="80" height="20" rx="4" fill="#fef3c7"/><text x="175" y="48" text-anchor="middle" font-size="12" font-weight="bold" fill="#d97706">C = O (C2!)</text><text x="115" y="76" font-size="12" font-weight="bold" fill="#0284c7">HO</text><line x1="140" y1="72" x2="210" y2="72" stroke="#0f172a" stroke-width="2"/><text x="216" y="76" font-size="12" fill="#dc2626">OH</text><line x1="140" y1="99" x2="210" y2="99" stroke="#0f172a" stroke-width="2"/><text x="216" y="103" font-size="12" font-weight="bold" fill="#dc2626">OH</text><line x1="140" y1="126" x2="210" y2="126" stroke="#0f172a" stroke-width="2"/><text x="216" y="130" font-size="12" font-weight="bold" fill="#dc2626">OH</text><text x="175" y="156" text-anchor="middle" font-size="12" font-weight="bold">CH₂OH</text></svg>`,
+      a: "<strong>D-Fructose</strong> (Fruchtzucker)<br>• <strong>Ketohexose</strong> (6 C, Ketogruppe an C2).<br>• Steht zu D-Glucose und D-Galactose im Verhältnis von <strong>Konstitutionsisomeren</strong> (Klausur 2020, 2021)!" },
+    { cat: "SUGAR", catName: "Monosaccharid (Pentosen)", q: "Welcher 5er-Zucker (alle 3 OH rechts) ist links dargestellt, und wie heißt sein Konstitutionsisomer rechts?",
+      svg: `<svg viewBox="0 0 380 150" width="100%" height="145"><text x="95" y="20" text-anchor="middle" font-size="11" font-weight="bold" fill="#4f46e5">1) CHO (C1)</text><line x1="95" y1="25" x2="95" y2="120" stroke="#0f172a" stroke-width="2"/><line x1="65" y1="48" x2="125" y2="48" stroke="#0f172a" stroke-width="2"/><text x="130" y="52" font-size="11" font-weight="bold" fill="#dc2626">OH</text><line x1="65" y1="73" x2="125" y2="73" stroke="#0f172a" stroke-width="2"/><text x="130" y="77" font-size="11" font-weight="bold" fill="#dc2626">OH</text><line x1="65" y1="98" x2="125" y2="98" stroke="#0f172a" stroke-width="2"/><text x="130" y="102" font-size="11" font-weight="bold" fill="#dc2626">OH</text><text x="95" y="135" text-anchor="middle" font-size="11" font-weight="bold">CH₂OH</text><text x="275" y="20" text-anchor="middle" font-size="11" font-weight="bold">2) CH₂OH</text><line x1="275" y1="25" x2="275" y2="120" stroke="#0f172a" stroke-width="2"/><text x="275" y="50" text-anchor="middle" font-size="11" font-weight="bold" fill="#d97706">C = O (C2)</text><line x1="245" y1="73" x2="305" y2="73" stroke="#0f172a" stroke-width="2"/><text x="310" y="77" font-size="11" font-weight="bold" fill="#dc2626">OH</text><line x1="245" y1="98" x2="305" y2="98" stroke="#0f172a" stroke-width="2"/><text x="310" y="102" font-size="11" font-weight="bold" fill="#dc2626">OH</text><text x="275" y="135" text-anchor="middle" font-size="11" font-weight="bold">CH₂OH</text></svg>`,
+      a: "1) <strong>D-Ribose</strong> (Aldopentose, Zucker der RNA).<br>2) <strong>D-Ribulose</strong> (Ketopentose, gehört NICHT zu den Hexosen [2020 #27]).<br>• Ribose und Ribulose sind zueinander <strong>Konstitutionsisomere</strong> (Klausur 2023/2024)!" },
+    { cat: "SUGAR", catName: "Zucker-Ring (RNA vs. DNA)", q: "Wie unterscheidet sich β-D-Ribofuranose (RNA) von β-D-2-Desoxyribofuranose (DNA)?",
+      svg: `<svg viewBox="0 0 380 140" width="100%" height="135"><polygon points="95,25 145,55 128,105 62,105 45,55" fill="none" stroke="#0f172a" stroke-width="2"/><text x="90" y="22" font-size="12" font-weight="bold" fill="#dc2626">O</text><text x="122" y="124" font-size="11" font-weight="bold" fill="#0284c7">C2': OH (Ribose)</text><text x="45" y="124" font-size="11" font-weight="bold">C3': OH</text><polygon points="275,25 325,55 308,105 242,105 225,55" fill="none" stroke="#0f172a" stroke-width="2"/><text x="270" y="22" font-size="12" font-weight="bold" fill="#dc2626">O</text><text x="285" y="124" font-size="11" font-weight="bold" fill="#dc2626">C2': nur H! (Desoxy)</text><text x="225" y="124" font-size="11" font-weight="bold">C3': OH</text></svg>`,
+      a: "• <strong>Ribose (RNA, ATP, GTP, NADP⁺, SAM):</strong> Trägt unten am Fünfring <strong>ZWEI OH-Gruppen</strong> (an C2' und C3').<br>• <strong>2'-Desoxyribose (DNA, Thymidin):</strong> An <strong>C2' fehlt das Sauerstoffatom</strong> (nur ein H statt OH!)." },
+    { cat: "SUGAR", catName: "Monosaccharid (Triosen & Tetrosen)", q: "Wie heißen die zwei Triosen (3 C) und die zwei D-Aldotetrosen (4 C)?",
+      svg: `<svg viewBox="0 0 360 120" width="100%" height="115"><text x="90" y="30" text-anchor="middle" font-size="12" font-weight="bold" fill="#0284c7">Triosen (C₃H₆O₃):</text><text x="90" y="55" text-anchor="middle" font-size="11">Aldotriose vs. Ketotriose</text><text x="270" y="30" text-anchor="middle" font-size="12" font-weight="bold" fill="#4f46e5">Aldotetrosen (C₄H₈O₄):</text><text x="270" y="55" text-anchor="middle" font-size="11">2x OH rechts vs. links/rechts</text><text x="180" y="95" text-anchor="middle" font-size="11" fill="#64748b">(Klausur 2015 #30: CHO + 2 Zentren = Aldotetrose!)</text></svg>`,
+      a: "• <strong>Triosen (3 C):</strong> <strong>Glycerinaldehyd</strong> (Aldotriose, 1 Zentrum) &amp; <strong>Dihydroxyaceton</strong> (Ketotriose, achiral).<br>• <strong>Aldotetrosen (4 C):</strong> <strong>D-Erythrose</strong> (beide OH rechts) &amp; <strong>D-Threose</strong> (C2 links, C3 rechts)." },
+    { cat: "SUGAR", catName: "Disaccharid (Bindungstyp)", q: "Welches Disaccharid ist hier beschrieben und welche glycosidische Bindung liegt vor? (Galactose + Glucose)",
+      svg: `<svg viewBox="0 0 380 130" width="100%" height="125"><polygon points="35,40 85,40 105,70 85,100 35,100 15,70" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/><text x="60" y="75" text-anchor="middle" font-size="11" font-weight="bold">Gal (C1)</text><line x1="105" y1="70" x2="145" y2="45" stroke="#dc2626" stroke-width="2.5"/><text x="148" y="48" font-size="12" font-weight="bold" fill="#dc2626">O (β nach oben!)</text><line x1="162" y1="50" x2="195" y2="70" stroke="#dc2626" stroke-width="2.5"/><polygon points="215,40 265,40 285,70 265,100 215,100 195,70" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/><text x="240" y="75" text-anchor="middle" font-size="11" font-weight="bold">Glc (C4)</text></svg>`,
+      a: "<strong>Lactose (Milchzucker)</strong> (Klausur 2018, 2023, 2024 &amp; Seminar 49)<br>• Bausteine: β-D-Galactopyranose + D-Glucopyranose.<br>• Verknüpfung: <strong>β-(1&rarr;4)-glycosidisch</strong>." },
+    { cat: "SUGAR", catName: "Disaccharid (Bindungstyp)", q: "Welche glycosidische Verknüpfung liegt in Isomaltose vor? (Klausur 2019, 2020, 2021)",
+      svg: `<svg viewBox="0 0 380 140" width="100%" height="135"><polygon points="140,15 190,15 210,40 190,65 140,65 120,40" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/><text x="165" y="45" text-anchor="middle" font-size="10" font-weight="bold">Glc 1 (C1)</text><line x1="210" y1="40" x2="210" y2="75" stroke="#dc2626" stroke-width="2.5"/><text x="216" y="65" font-size="11" font-weight="bold" fill="#dc2626">O (α = unten)</text><text x="180" y="92" font-size="11" font-weight="bold" fill="#dc2626">CH₂ (C6!)</text><polygon points="140,95 190,95 210,118 190,135 140,135 120,118" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/></svg>`,
+      a: "<strong>Isomaltose: α-(1&rarr;6)-glycosidische Bindung!</strong><br>• Erkennung: Am oberen Ring geht die Bindung vom C1 nach <strong>unten (α)</strong> und mündet am unteren Ring in die <strong>CH<sub>2</sub>-Seitenkette außerhalb des Rings (= C6!)</strong>." },
+    { cat: "SUGAR", catName: "Disaccharid (Bindungstyp)", q: "Welche glycosidische Verknüpfung liegt in Saccharose (Haushaltszucker) vor? (Klausur 2025 &amp; Beispielklausur)",
+      svg: `<svg viewBox="0 0 380 135" width="100%" height="130"><polygon points="40,25 90,25 110,55 90,85 40,85 20,55" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/><text x="65" y="58" text-anchor="middle" font-size="10" font-weight="bold">α-D-Glc (C1)</text><line x1="110" y1="55" x2="145" y2="85" stroke="#dc2626" stroke-width="2.5"/><text x="148" y="92" font-size="12" font-weight="bold" fill="#dc2626">O</text><line x1="162" y1="85" x2="195" y2="65" stroke="#dc2626" stroke-width="2.5"/><polygon points="225,40 265,65 250,105 205,105 195,65" fill="#fef3c7" stroke="#d97706" stroke-width="2"/><text x="230" y="85" text-anchor="middle" font-size="10" font-weight="bold">β-D-Fru (C2)</text></svg>`,
+      a: "<strong>Saccharose: α,β-(1&rarr;2)-glycosidische Bindung!</strong><br>• Bausteine: α-D-Glucopyranose (C1) + β-D-Fructofuranose (C2).<br>• Da <strong>beide</strong> anomeren Zentren blockiert sind, ist Saccharose <strong>NICHT reduzierend</strong>!" },
+    { cat: "SUGAR", catName: "Polysaccharide", q: "Wie sind Cellulose, Chitin, Amylose und Glykogen glycosidisch verknüpft?",
+      svg: `<svg viewBox="0 0 360 110" width="100%" height="105"><text x="180" y="35" text-anchor="middle" font-size="13" font-weight="bold" fill="#16a34a">Cellulose &amp; Chitin vs. Stärke (Amylose/Amylopektin)</text><text x="180" y="65" text-anchor="middle" font-size="11" fill="#475569">(Klausur 2015 #25 &amp; 2017 #38)</text></svg>`,
+      a: "• <strong>Cellulose &amp; Chitin:</strong> <strong>β-(1&rarr;4)</strong> (unverzweigte Fasern).<br>• <strong>Amylose (Stärke):</strong> <strong>α-(1&rarr;4)</strong>.<br>• <strong>Amylopektin &amp; Glykogen:</strong> Kette <strong>α-(1&rarr;4)</strong> mit Verzweigungen über <strong>α-(1&rarr;6)</strong>." },
+    { cat: "SUGAR", catName: "Zucker-Reaktionen (Seminar 29)", q: "Was entsteht aus einer Aldose mit a) Tollens-Reagenz [Ag(NH₃)₂]⁺ vs. b) konz. Salpetersäure HNO₃?",
+      svg: `<svg viewBox="0 0 360 115" width="100%" height="110"><text x="180" y="35" text-anchor="middle" font-size="12" font-weight="bold" fill="#0284c7">a) CHO &rarr; COOH (nur C1 oxidiert)</text><text x="180" y="75" text-anchor="middle" font-size="12" font-weight="bold" fill="#dc2626">b) CHO &amp; CH₂OH &rarr; beide zu COOH (C1 &amp; C6!)</text></svg>`,
+      a: "• <strong>a) Tollens / Fehling (milde Oxidation):</strong> Nur C1 (<code>–CHO</code>) wird zu <code>–COOH</code> &rarr; <strong>Aldonsäure</strong> (z. B. Gluconsäure, Mannonsäure) + Silberspiegel <code>Ag↓</code>.<br>• <strong>b) Konz. HNO<sub>3</sub> (starke Oxidation):</strong> C1 UND C6 werden zu <code>–COOH</code> &rarr; <strong>Aldarsäure</strong> (z. B. <em>meso</em>-Allarsäure, <em>meso</em>-Galactarsäure)." },
+
+    // --- PURIN, PYRIMIDIN & NUKLEOBASEN ---
+    { cat: "BASE", catName: "Stamm-Heterocyclus", q: "Welches aromatische Grundgerüst ist hier dargestellt und welche Nukleobasen leiten sich davon ab?",
+      svg: `<svg viewBox="0 0 320 140" width="100%" height="135"><polygon points="160,20 205,45 205,95 160,120 115,95 115,45" fill="#e0f2fe" stroke="#0284c7" stroke-width="2.5"/><text x="200" y="48" font-size="13" font-weight="bold" fill="#dc2626">N (3)</text><text x="155" y="128" font-size="13" font-weight="bold" fill="#dc2626">N (1)</text><line x1="123" y1="50" x2="123" y2="90" stroke="#0f172a" stroke-width="2"/><line x1="160" y1="29" x2="195" y2="49" stroke="#0f172a" stroke-width="2"/><line x1="168" y1="112" x2="197" y2="92" stroke="#0f172a" stroke-width="2"/></svg>`,
+      a: "<strong>Pyrimidin</strong> (Sechsring mit 2 N in 1,3-Stellung, 6 π-Elektronen = Heteroaromat).<br>• Davon leiten sich die 3 Einring-Basen ab: <strong>Cytosin (C), Uracil (U) und Thymin (T)</strong> (Merke: <em>CUT the Py</em>)." },
+    { cat: "BASE", catName: "Stamm-Heterocyclus", q: "Welches bicyclische Grundgerüst (Sechsring + Fünfring, 4 N) ist hier dargestellt?",
+      svg: `<svg viewBox="0 0 340 140" width="100%" height="135"><polygon points="130,25 175,48 175,95 130,118 85,95 85,48" fill="#ede9fe" stroke="#5b21b6" stroke-width="2.2"/><polygon points="175,48 220,35 242,71 220,108 175,95" fill="#dcfce7" stroke="#16a34a" stroke-width="2.2"/><text x="75" y="52" font-size="12" font-weight="bold" fill="#dc2626">N1</text><text x="125" y="130" font-size="12" font-weight="bold" fill="#dc2626">N3</text><text x="215" y="30" font-size="12" font-weight="bold" fill="#16a34a">N7</text><text x="215" y="122" font-size="12" font-weight="bold" fill="#16a34a">NH (9)</text></svg>`,
+      a: "<strong>Purin</strong> (Pyrimidinring + Imidazolring verschmolzen, 10 π-Elektronen = Aromat).<br>• Davon leiten sich die 2 großen Doppelring-Basen ab: <strong>Adenin (A) und Guanin (G)</strong>." },
+    { cat: "BASE", catName: "Nukleobase (Purin)", q: "Welche Nukleobase ist hier dargestellt? (2 Ringe, NH₂ oben, KEIN Sauerstoff!)",
+      svg: `<svg viewBox="0 0 340 150" width="100%" height="145"><polygon points="130,45 175,65 175,110 130,130 85,110 85,65" fill="#ede9fe" stroke="#5b21b6" stroke-width="2.2"/><polygon points="175,65 218,52 238,87 218,122 175,110" fill="#ede9fe" stroke="#5b21b6" stroke-width="2.2"/><line x1="130" y1="45" x2="130" y2="22" stroke="#dc2626" stroke-width="2.5"/><text x="118" y="18" font-size="14" font-weight="bold" fill="#dc2626">NH₂ (an C6)</text><text x="155" y="146" font-size="11" fill="#475569">Kein C=O im gesamten Molekül!</text></svg>`,
+      a: "<strong>Adenin (A)</strong> (6-Aminopurin)<br>• <strong>Erkennung:</strong> Doppelring (Purin) mit <code>–NH2</code> oben und <strong>null Sauerstoff</strong>!<br>• Paart mit Thymin (DNA) bzw. Uracil (RNA) über <strong>2 H-Brücken</strong>." },
+    { cat: "BASE", catName: "Nukleobase (Purin)", q: "Welche Nukleobase ist hier dargestellt? (2 Ringe, C=O oben UND NH₂ unten links!)",
+      svg: `<svg viewBox="0 0 340 150" width="100%" height="145"><polygon points="130,45 175,65 175,110 130,130 85,110 85,65" fill="#ede9fe" stroke="#5b21b6" stroke-width="2.2"/><polygon points="175,65 218,52 238,87 218,122 175,110" fill="#ede9fe" stroke="#5b21b6" stroke-width="2.2"/><line x1="128" y1="45" x2="128" y2="22" stroke="#dc2626" stroke-width="2.2"/><line x1="133" y1="45" x2="133" y2="22" stroke="#dc2626" stroke-width="2.2"/><text x="125" y="18" font-size="14" font-weight="bold" fill="#dc2626">O</text><line x1="85" y1="110" x2="55" y2="125" stroke="#0284c7" stroke-width="2.2"/><text x="20" y="132" font-size="13" font-weight="bold" fill="#0284c7">H₂N</text></svg>`,
+      a: "<strong>Guanin (G)</strong><br>• <strong>Erkennung:</strong> Doppelring (Purin) mit <code>C=O</code> oben (C6) UND <code>H2N–</code> unten links (C2).<br>• Paart mit Cytosin über <strong>3 H-Brücken</strong>." },
+    { cat: "BASE", catName: "Nukleobase (Pyrimidin)", q: "Welche Nukleobase ist hier dargestellt? (1 Ring, NH₂ oben + 1 C=O)",
+      svg: `<svg viewBox="0 0 320 150" width="100%" height="145"><polygon points="160,42 200,65 200,108 160,130 120,108 120,65" fill="#e0f2fe" stroke="#0284c7" stroke-width="2.2"/><line x1="160" y1="42" x2="160" y2="20" stroke="#0284c7" stroke-width="2.5"/><text x="148" y="17" font-size="14" font-weight="bold" fill="#0284c7">NH₂</text><line x1="120" y1="106" x2="92" y2="120" stroke="#dc2626" stroke-width="2"/><line x1="122" y1="111" x2="94" y2="125" stroke="#dc2626" stroke-width="2"/><text x="76" y="130" font-size="14" font-weight="bold" fill="#dc2626">O</text></svg>`,
+      a: "<strong>Cytosin (C)</strong><br>• <strong>Erkennung:</strong> Einziger Pyrimidin-Einring mit einer <strong><code>–NH2</code>-Gruppe</strong> (und nur einem <code>C=O</code>)!" },
+    { cat: "BASE", catName: "Nukleobase (Pyrimidin - RNA)", q: "Welche Nukleobase ist hier dargestellt? (1 Ring, zwei C=O, KEINE Methylgruppe)",
+      svg: `<svg viewBox="0 0 320 150" width="100%" height="145"><polygon points="160,42 200,65 200,108 160,130 120,108 120,65" fill="#fef3c7" stroke="#d97706" stroke-width="2.2"/><line x1="158" y1="42" x2="158" y2="20" stroke="#dc2626" stroke-width="2"/><line x1="163" y1="42" x2="163" y2="20" stroke="#dc2626" stroke-width="2"/><text x="155" y="17" font-size="14" font-weight="bold" fill="#dc2626">O</text><line x1="120" y1="106" x2="92" y2="120" stroke="#dc2626" stroke-width="2"/><line x1="122" y1="111" x2="94" y2="125" stroke="#dc2626" stroke-width="2"/><text x="76" y="130" font-size="14" font-weight="bold" fill="#dc2626">O</text><text x="225" y="70" font-size="11" fill="#64748b">Kein CH₃ an C5!</text></svg>`,
+      a: "<strong>Uracil (U)</strong> (Klausur 2017 #36)<br>• Kommt <strong>nur in RNA</strong> vor.<br>• <strong>Erkennung:</strong> 1 Ring, zwei <code>C=O</code> Gruppen, <strong>ohne</strong> Methylgruppe." },
+    { cat: "BASE", catName: "Nukleobase (Pyrimidin - DNA)", q: "Welche Nukleobase ist hier dargestellt? (1 Ring, zwei C=O + CH₃-Gruppe!)",
+      svg: `<svg viewBox="0 0 320 150" width="100%" height="145"><polygon points="160,42 200,65 200,108 160,130 120,108 120,65" fill="#dcfce7" stroke="#16a34a" stroke-width="2.2"/><line x1="158" y1="42" x2="158" y2="20" stroke="#dc2626" stroke-width="2"/><line x1="163" y1="42" x2="163" y2="20" stroke="#dc2626" stroke-width="2"/><text x="155" y="17" font-size="14" font-weight="bold" fill="#dc2626">O</text><line x1="120" y1="106" x2="92" y2="120" stroke="#dc2626" stroke-width="2"/><line x1="122" y1="111" x2="94" y2="125" stroke="#dc2626" stroke-width="2"/><text x="76" y="130" font-size="14" font-weight="bold" fill="#dc2626">O</text><line x1="200" y1="65" x2="232" y2="50" stroke="#16a34a" stroke-width="2.5"/><text x="236" y="53" font-size="14" font-weight="bold" fill="#16a34a">CH₃ (an C5!)</text></svg>`,
+      a: "<strong>Thymin (T)</strong> (= 5-Methyluracil, Beispielklausur)<br>• Kommt <strong>nur in DNA</strong> vor.<br>• <strong>Erkennung:</strong> Einzige natürliche Nukleobase mit einer <strong>Methylgruppe (<code>–CH3</code>)</strong>!" },
+    { cat: "BASE", catName: "Nukleosid vs. Nukleotid", q: "Was ist der genaue Unterschied zwischen Nukleobase, Nukleosid und Nukleotid? (Seminar 57 &amp; Klausur 2023/2024)",
+      svg: `<svg viewBox="0 0 380 115" width="100%" height="110"><rect x="15" y="30" width="95" height="50" rx="6" fill="#ede9fe" stroke="#5b21b6" stroke-width="2"/><text x="62" y="58" text-anchor="middle" font-size="11" font-weight="bold">1. Base</text><text x="122" y="58" font-size="16" font-weight="bold">+</text><rect x="138" y="30" width="95" height="50" rx="6" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/><text x="185" y="58" text-anchor="middle" font-size="11" font-weight="bold">2. (Desoxy)Ribose</text><text x="245" y="58" font-size="16" font-weight="bold">+</text><rect x="262" y="30" width="105" height="50" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="2"/><text x="314" y="58" text-anchor="middle" font-size="11" font-weight="bold">3. Phosphat(e)</text></svg>`,
+      a: "• <strong>Nukleosid = Base + Zucker</strong> (z. B. Adenosin, Guanosin, Cytidin, Thymidin – <u>ohne</u> Phosphat!).<br>• <strong>Nukleotid = Base + Zucker + 1–3 Phosphatgruppen</strong> an C5' (z. B. AMP, ADP, ATP, GTP, dTTP)." }
+];
+
+let activeDeck = [...DECK_DATA];
+let currentIndex = 0;
+let knownCount = 0;
+
+function renderCard() {
+    const item = activeDeck[currentIndex];
+    document.getElementById("card-cat").textContent = item.catName;
+    document.getElementById("card-q").textContent = item.q;
+    document.getElementById("card-svg").innerHTML = item.svg;
+    const ansEl = document.getElementById("card-a");
+    ansEl.innerHTML = item.a;
+    ansEl.style.display = "none";
+
+    document.getElementById("btn-reveal").style.display = "inline-block";
+    document.getElementById("btn-again").style.display = "none";
+    document.getElementById("btn-good").style.display = "none";
+
+    document.getElementById("anki-progress").textContent = `Karte ${currentIndex + 1} / ${activeDeck.length}`;
+    document.getElementById("anki-known").textContent = `Gewusst: ${knownCount}`;
+}
+
+function revealAnswer() {
+    document.getElementById("card-a").style.display = "block";
+    document.getElementById("btn-reveal").style.display = "none";
+    document.getElementById("btn-again").style.display = "inline-block";
+    document.getElementById("btn-good").style.display = "inline-block";
+}
+
+function markCard(isGood) {
+    if (isGood) knownCount++;
+    nextCard();
+}
+
+function nextCard() {
+    currentIndex = (currentIndex + 1) % activeDeck.length;
+    renderCard();
+}
+
+function prevCard() {
+    currentIndex = (currentIndex - 1 + activeDeck.length) % activeDeck.length;
+    renderCard();
+}
+
+function setCategory(cat, btnEl) {
+    document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+    btnEl.classList.add("active");
+    activeDeck = cat === "ALL" ? [...DECK_DATA] : DECK_DATA.filter(d => d.cat === cat);
+    currentIndex = 0;
+    knownCount = 0;
+    renderCard();
+}
+
+function shuffleDeck() {
+    for (let i = activeDeck.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [activeDeck[i], activeDeck[j]] = [activeDeck[j], activeDeck[i]];
+    }
+    currentIndex = 0;
+    renderCard();
+}
+
+// Tastatur-Steuerung (Leertaste = Aufdecken, Pfeiltasten = Vor/Zurück)
+document.addEventListener("keydown", function(e) {
+    if (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA") return;
+    if (e.code === "Space") {
+        e.preventDefault();
+        const ansVisible = document.getElementById("card-a").style.display === "block";
+        if (!ansVisible) revealAnswer();
+        else markCard(true);
+    } else if (e.code === "ArrowRight") {
+        nextCard();
+    } else if (e.code === "ArrowLeft") {
+        prevCard();
+    }
+});
+
+// Export als echte Anki-Datei (.txt Tab-separated inklusive eingebettetem SVG!)
+function exportAnkiTSV() {
+    let lines = [];
+    DECK_DATA.forEach(item => {
+        const front = `<b>[${item.catName}]</b><br>${item.q}<br>${item.svg.replace(/\s+/g, ' ')}`;
+        const back = item.a.replace(/\n/g, ' ');
+        lines.push(`${front}\t${back}\tVoWo_Chemie_${item.cat}`);
+    });
+    const blob = new Blob([lines.join("\n")], { type: "text/plain;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "Anki_Deck_VoWo_Mannheim_Biomolekuele.txt";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+}
+
+// Komplette Webseite als .html herunterladen
+function downloadHTML() {
+    const htmlContent = "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
+    const blob = new Blob([htmlContent], { type: "text/html;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "oc_teil2_biomolekuele_anki.html";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+}
+
+// Initialisierung beim Laden
+renderCard();
+</script>
+
+</body>
+</html>
+```
